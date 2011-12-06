@@ -16,14 +16,20 @@ public class DataTiming {
     
     class InnerAction implements ActionListener{
 
+        DataSet innerSet;
+        public InnerAction(DataSet innerSet)
+        {
+            this.innerSet = innerSet;
+        }
         @Override
         public void actionPerformed(ActionEvent e) {
-            set.fetchData();
+            System.out.println("Called");
+            innerSet.fetchData();
         }
         
     }
     
-    public int getMillis()
+    public final int getMillis()
     {
         return (int)(Math.round(Double.parseDouble(interval.getText()) * 60000));
     }
@@ -32,8 +38,14 @@ public class DataTiming {
     {
         this.set = set;
         this.interval = interval;
-        this.timer = new Timer(getMillis(), new InnerAction());
+        timer = new Timer(getMillis(), new InnerAction(set));
     }
+    
+    public void start()
+    {
+        timer.start();
+    }
+            
     
     public void updateInterval()
     {

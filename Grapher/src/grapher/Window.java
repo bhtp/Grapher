@@ -22,8 +22,9 @@ public class Window extends javax.swing.JFrame {
         source = new DataSource(url.getText(), urlField.getText());
         set = new DataSet(source);
         set.setParent(mainGraph);
-        timing = new DataTiming(set, timeInterval);
         mainGraph.init(set);
+        timing = new DataTiming(set, timeInterval);
+        timing.start();
     }
 
     /**
