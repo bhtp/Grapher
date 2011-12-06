@@ -20,7 +20,7 @@ public class Window extends javax.swing.JFrame {
     public void initUserComps()
     {
         source = new DataSource(url.getText(), urlField.getText());
-        set = new DataSet(source);
+        set = new DataSet(source, scale);
         set.setParent(mainGraph);
         mainGraph.init(set);
         timing = new DataTiming(set, timeInterval);

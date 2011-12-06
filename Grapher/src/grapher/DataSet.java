@@ -2,6 +2,7 @@ package grapher;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import javax.swing.JTextField;
 
 /**
  *
@@ -10,22 +11,23 @@ import java.util.Calendar;
 public class DataSet {
     
     private ArrayList<DataPoint> set;
+    private JTextField scaleField;
     private int scale;
     private int start;
     private GraphComponent parent;
     private double ratio;
     private double timeRatio;
-    private final int DEFAULT_SCALE = 15;
     private double max;
     private double min;
     private DataSource source;
     
-    public DataSet(DataSource source)
+    public DataSet(DataSource source, JTextField scaleField)
     {
         this.set = new ArrayList<DataPoint>();
-        this.scale = DEFAULT_SCALE;
         this.start = 0;
         this.source = source;
+        this.scaleField = scaleField;
+        setScale();
     }
     
     public void setParent(GraphComponent parent)
@@ -33,9 +35,9 @@ public class DataSet {
         this.parent = parent;
     }
     
-    public void setScale(int scale)
+    public void setScale()
     {
-        this.scale = scale;
+        this.scale = (int)(Math.round(Double.parseDouble(scaleField.getText())));
         hardUpdate();
     }
     
