@@ -19,12 +19,6 @@ public class GraphComponent extends JComponent{
     
     public void paint(Graphics g)
     {
-        Graphics2D g2 = (Graphics2D)(g);
-        int[] points = set.getPointsInRange();
-        for(int i = 0; i < points.length; i++)
-        {
-            g2.drawLine();
-        }
         
     }
     
