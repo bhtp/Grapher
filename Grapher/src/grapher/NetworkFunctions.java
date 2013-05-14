@@ -50,9 +50,10 @@ public class NetworkFunctions {
     
     public static String parse(String raw, String field)
     {
-        int start = raw.indexOf(field) + field.length();
-        start = raw.indexOf("\"", start);
-        int end = raw.indexOf("\"", start);
+        int start = raw.indexOf(field) + field.length() + 1;
+        start = raw.indexOf(":", start);
+        start = raw.indexOf("\"", start) + 1;
+        int end = raw.indexOf("\"", start+1);
         return raw.substring(start, end);
     }
     

@@ -14,6 +14,6 @@ public class Grapher {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        System.out.println(NetworkFunctions.fetchData("https://www.bitstamp.net/api/ticker/", "high"));
     }
 }
