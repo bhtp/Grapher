@@ -16,6 +16,8 @@ public class DataSet {
     private double ratio;
     private double timeRatio;
     private final int DEFAULT_SCALE = 15;
+    private double max;
+    private double min;
     
     public DataSet(GraphComponent parent)
     {
@@ -35,6 +37,8 @@ public class DataSet {
     {
         setStartBound();
         setRatio();
+        setMaximum();
+        setMinimum();
         parent.repaint();
     }
     
@@ -76,9 +80,9 @@ public class DataSet {
         update();
     }
     
-    public double getMaximum()
+    public void setMaximum()
     {
-        double max = Double.MIN_VALUE;
+        max = Double.MIN_VALUE;
         for(int i = start; i < set.size(); i++)
         {
             double temp = set.get(i).getValue();
@@ -87,12 +91,11 @@ public class DataSet {
                 max = temp;
             }
         }
-        return max;
     }
     
-    public double getMinimum()
+    public void setMinimum()
     {
-        double min = Double.MAX_VALUE;
+        min = Double.MAX_VALUE;
         for(int i = start; i < set.size(); i++)
         {
             double temp = set.get(i).getValue();
@@ -101,12 +104,11 @@ public class DataSet {
                 min = temp;
             }
         }
-        return min;
     }
     
     public double getRange()
     {
-        return getMaximum() - getMinimum();
+        return max - min;
     }
     
     public int convert(double value)
