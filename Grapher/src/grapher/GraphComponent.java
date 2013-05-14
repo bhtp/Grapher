@@ -13,9 +13,10 @@ public class GraphComponent extends JComponent{
     
    DataSet set;
     
-    public GraphComponent()
+    public void init(DataSet set)
     {
-        set = new DataSet(this);
+        this.set = set;
+        this.set.setParent(this);
     }
     
     public int getUsableHeight()
@@ -30,6 +31,8 @@ public class GraphComponent extends JComponent{
     
     public static void paintGraph(Graphics2D g2, ArrayList<Pair> points)
     {
+        if(points.size() == 0)
+            return;
         Pair last = points.get(0);
         for(int i = 0; i < points.size(); i++)
         {
@@ -43,6 +46,7 @@ public class GraphComponent extends JComponent{
     {
         Graphics2D g2 = (Graphics2D)(g);
         paintGraph(g2, set.getPointsInRange());
+        super.paint(g);
     }
     
 }

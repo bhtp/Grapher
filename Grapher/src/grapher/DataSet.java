@@ -18,13 +18,19 @@ public class DataSet {
     private final int DEFAULT_SCALE = 15;
     private double max;
     private double min;
+    private DataSource source;
     
-    public DataSet(GraphComponent parent)
+    public DataSet(DataSource source)
     {
         this.set = new ArrayList<DataPoint>();
         this.scale = DEFAULT_SCALE;
-        this.parent = parent;
         this.start = 0;
+        this.source = source;
+    }
+    
+    public void setParent(GraphComponent parent)
+    {
+        this.parent = parent;
     }
     
     public void setScale(int scale)
@@ -154,6 +160,11 @@ public class DataSet {
             ret.add(new Pair(convertTime(temp.getTime()), convert(temp.getValue())));
         }
         return ret;
+    }
+    
+    public void fetchData()
+    {
+        add(new DataPoint(source.getData()));
     }
     
 }
