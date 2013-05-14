@@ -14,6 +14,7 @@ public class DataSet {
     private int start;
     private GraphComponent parent;
     private double ratio;
+    private double timeRatio;
     private final int DEFAULT_SCALE = 15;
     
     public DataSet(GraphComponent parent)
@@ -33,12 +34,14 @@ public class DataSet {
     public void update()
     {
         setStartBound();
+        setRatio();
         parent.repaint();
     }
     
     public void hardUpdate()
     {
         hardSetStartBound();
+        setTimeRatio();
         parent.repaint();
     }
     
@@ -111,9 +114,28 @@ public class DataSet {
         return (int)(Math.round(value * ratio));
     }
     
+    public int convertTime(Calendar value)
+    {
+        Calendar now = Calendar.getInstance();
+        int days = now.get(Calendar.DAY_OF_YEAR) - value.get(Calendar.DAY_OF_YEAR);
+        int hours = days * 24 + now.get(Calendar.HOUR_OF_DAY) - value.get(Calendar.HOUR_OF_DAY);
+        int minutes = hours * 60 + now.get(Calendar.MINUTE) - now.get(Calendar.MINUTE);
+        return (int)(Math.round(minutes * ratio));
+    }
+    
+    public void setTimeRatio()
+    {
+        timeRatio = parent.getUsableWidth() / scale;
+    }
+    
+    public double getTimeRatio()
+    {
+        return timeRatio;
+    }
+            
     public void setRatio()
     {
-        ratio = parent.getHeight() / getRange();
+        ratio = parent.getUsableHeight() / getRange();
     }
     
     public double getRatio()
@@ -121,16 +143,15 @@ public class DataSet {
         return ratio;
     }
     
-    public int [] getPointsInRange()
+    public ArrayList<Pair> getPointsInRange()
     {
-        int [] temp = new int[set.size() - start];
-        int point = 0;
-        int loc = start;
-        while(loc < set.size())
+        ArrayList<Pair> ret = new ArrayList<Pair>();
+        for(int i = start; i < set.size(); i++)
         {
-            temp[point] = convert(set.get(loc).getValue());
+            DataPoint temp = set.get(i);
+            ret.add(new Pair(convertTime(temp.getTime()), convert(temp.getValue())));
         }
-        return temp;
+        return ret;
     }
     
 }

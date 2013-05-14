@@ -7,10 +7,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  *
  * @author Parker
@@ -52,25 +48,16 @@ public class NetworkFunctions {
         return out;
     }
     
-    public static Map<String, String> parse(String raw)
+    public static String parse(String raw, String field)
     {
-        Map<String, String> temp = new HashMap<String, String>();
-        int nameStart;
-        int nameEnd;
-        int dataStart;
-        int dataEnd = raw.indexOf("{");
-        while((nameStart = raw.indexOf("\"", dataEnd + 1)+ 1)!=0)
-        {
-            nameEnd = raw.indexOf("\"", nameStart + 1);
-            dataStart = raw.indexOf("\"", nameEnd + 1) + 1;
-            dataEnd = raw.indexOf("\"", dataStart + 1);
-            temp.put(raw.substring(nameStart, nameEnd), raw.substring(dataStart, dataEnd));
-        }
-        return temp;
+        int start = raw.indexOf(field) + field.length();
+        start = raw.indexOf("\"", start);
+        int end = raw.indexOf("\"", start);
+        return raw.substring(start, end);
     }
     
-    public static Map<String, String> fetchDataSet(String url)
+    public static String fetchData(String url, String field)
     {
-        return parse(getData(url));
+        return parse(getData(url), field);
     }
 }
