@@ -129,7 +129,7 @@ public class DataSet {
         int days = now.get(Calendar.DAY_OF_YEAR) - value.get(Calendar.DAY_OF_YEAR);
         int hours = days * 24 + now.get(Calendar.HOUR_OF_DAY) - value.get(Calendar.HOUR_OF_DAY);
         int minutes = hours * 60 + now.get(Calendar.MINUTE) - now.get(Calendar.MINUTE);
-        return (int)(Math.round(minutes * ratio));
+        return (int)(Math.round(minutes * ratio)*60);
     }
     
     public void setTimeRatio()
@@ -158,6 +158,7 @@ public class DataSet {
         System.out.println(getRange());
         System.out.println(set.size());
         System.out.println(ratio);
+        System.out.println(timeRatio);
         if(getRange() == 0)
         {
             int pos = (int)(Math.round(parent.getUsableHeight()/2));
