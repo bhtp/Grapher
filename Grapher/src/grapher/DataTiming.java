@@ -23,7 +23,6 @@ public class DataTiming {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Called");
             innerSet.fetchData();
         }
         

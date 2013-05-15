@@ -25,6 +25,7 @@ public class Window extends javax.swing.JFrame {
         mainGraph.init(set);
         timing = new DataTiming(set, timeInterval);
         timing.start();
+        set.setScale();
     }
 
     /**

@@ -27,7 +27,6 @@ public class DataSet {
         this.start = 0;
         this.source = source;
         this.scaleField = scaleField;
-        setScale();
     }
     
     public void setParent(GraphComponent parent)
@@ -44,9 +43,9 @@ public class DataSet {
     public void update()
     {
         setStartBound();
-        setRatio();
         setMaximum();
         setMinimum();
+        setRatio();
         parent.repaint();
     }
     
@@ -72,7 +71,7 @@ public class DataSet {
     public void setStartBound()
     {
         Calendar cutOff = getCutOff();
-        while(set.get(start).getTime().before(cutOff) && start < set.size())
+        while(start < set.size() && set.get(start).getTime().before(cutOff))
             start++;
     }
     
@@ -94,7 +93,7 @@ public class DataSet {
         for(int i = start; i < set.size(); i++)
         {
             double temp = set.get(i).getValue();
-            if(temp < max)
+            if(temp > max)
             {
                 max = temp;
             }
@@ -121,7 +120,7 @@ public class DataSet {
     
     public int convert(double value)
     {
-        return (int)(Math.round(value * ratio));
+        return (int)(Math.round((value - min) * ratio));
     }
     
     public int convertTime(Calendar value)
@@ -156,11 +155,21 @@ public class DataSet {
     public ArrayList<Pair> getPointsInRange()
     {
         ArrayList<Pair> ret = new ArrayList<Pair>();
+        System.out.println(getRange());
+        System.out.println(set.size());
+        System.out.println(ratio);
+        if(getRange() == 0)
+        {
+            int pos = (int)(Math.round(parent.getUsableHeight()/2));
+            ret.add(new Pair(0,pos));
+            ret.add(new Pair(parent.getUsableWidth(),pos));
+            return ret;
+        }
         for(int i = start; i < set.size(); i++)
         {
             DataPoint temp = set.get(i);
             ret.add(new Pair(convertTime(temp.getTime()), convert(temp.getValue())));
-        }
+        }           
         return ret;
     }
     
