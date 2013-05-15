@@ -6,7 +6,6 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -31,9 +30,9 @@
                   <Component id="urlField" max="32767" attributes="0"/>
                   <Component id="url" pref="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="mainGraph" min="-2" pref="428" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -41,11 +40,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
-                      <Component id="mainGraph" min="-2" pref="292" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
                       <Component id="timeInterval" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -55,8 +50,12 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="url" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
+                      <Component id="mainGraph" min="-2" pref="292" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="197" max="32767" attributes="0"/>
+              <EmptySpace pref="211" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -75,13 +74,16 @@
     </Component>
     <Component class="javax.swing.JTextField" name="scale">
       <Properties>
-        <Property name="text" type="java.lang.String" value="15"/>
+        <Property name="text" type="java.lang.String" value="1"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="urlField">
       <Properties>
         <Property name="text" type="java.lang.String" value="last"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="urlFieldActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="url">
       <Properties>

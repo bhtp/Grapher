@@ -19,6 +19,7 @@ public class DataSet {
     private double timeRatio;
     private double max;
     private double min;
+    private double range;
     private DataSource source;
     
     public DataSet(DataSource source, JTextField scaleField)
@@ -45,6 +46,7 @@ public class DataSet {
         setStartBound();
         setMaximum();
         setMinimum();
+        setRange();
         setRatio();
         parent.repaint();
     }
@@ -84,6 +86,7 @@ public class DataSet {
     public void add(DataPoint d)
     {
         set.add(d);
+        System.out.println("Value:" + d.value);
         update();
     }
     
@@ -113,9 +116,14 @@ public class DataSet {
         }
     }
     
+    public void setRange()
+    {
+        range = max - min;
+    }
+    
     public double getRange()
     {
-        return max - min;
+        return range;
     }
     
     public int convert(double value)
@@ -128,8 +136,10 @@ public class DataSet {
         Calendar now = Calendar.getInstance();
         int days = now.get(Calendar.DAY_OF_YEAR) - value.get(Calendar.DAY_OF_YEAR);
         int hours = days * 24 + now.get(Calendar.HOUR_OF_DAY) - value.get(Calendar.HOUR_OF_DAY);
-        int minutes = hours * 60 + now.get(Calendar.MINUTE) - now.get(Calendar.MINUTE);
-        return (int)(Math.round(minutes * ratio)*60);
+        int minutes = hours * 60 + now.get(Calendar.MINUTE) - value.get(Calendar.MINUTE);
+        int seconds = minutes * 60 + now.get(Calendar.SECOND) - value.get(Calendar.SECOND);
+        System.out.println((int)(Math.round((double)(seconds) / 60 * ratio )));
+        return (int)(Math.round((double)(seconds) / 60 * ratio ));
     }
     
     public void setTimeRatio()
@@ -144,7 +154,7 @@ public class DataSet {
             
     public void setRatio()
     {
-        ratio = parent.getUsableHeight() / getRange();
+        ratio = parent.getUsableHeight() / range;
     }
     
     public double getRatio()
@@ -155,11 +165,7 @@ public class DataSet {
     public ArrayList<Pair> getPointsInRange()
     {
         ArrayList<Pair> ret = new ArrayList<Pair>();
-        System.out.println(getRange());
-        System.out.println(set.size());
-        System.out.println(ratio);
-        System.out.println(timeRatio);
-        if(getRange() == 0)
+        if(range == 0)
         {
             int pos = (int)(Math.round(parent.getUsableHeight()/2));
             ret.add(new Pair(0,pos));
