@@ -21,12 +21,12 @@ public class GraphComponent extends JComponent{
     
     public int getUsableHeight()
     {
-        return getHeight();
+        return getHeight() - 10;
     }
     
     public int getUsableWidth()
     {
-        return getWidth();
+        return getWidth() - 10;
     }
     
     public static void paintGraph(Graphics2D g2, ArrayList<Pair> points)

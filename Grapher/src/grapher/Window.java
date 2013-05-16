@@ -19,7 +19,7 @@ public class Window extends javax.swing.JFrame {
     }
     public void initUserComps()
     {
-        source = new DataSource(url.getText(), urlField.getText());
+        source = new DataSource(url, urlField);
         set = new DataSet(source, scale);
         set.setParent(mainGraph);
         mainGraph.init(set);
@@ -48,6 +48,11 @@ public class Window extends javax.swing.JFrame {
         timeInterval.setText("0.1");
 
         scale.setText("1");
+        scale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                scaleActionPerformed(evt);
+            }
+        });
 
         urlField.setText("last");
         urlField.addActionListener(new java.awt.event.ActionListener() {
@@ -96,8 +101,12 @@ public class Window extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void urlFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_urlFieldActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_urlFieldActionPerformed
+
+    private void scaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scaleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_scaleActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1,13 +1,15 @@
 package grapher;
 
+import javax.swing.JTextField;
+
 /**
  *
  * @author 308809052
  */
 public class DataSource {
     
-    private String url;
-    private String fieldName;
+    private JTextField url;
+    private JTextField fieldName;
     
     public DataSource()
     {
@@ -15,25 +17,25 @@ public class DataSource {
         fieldName = null;
     }
     
-    public DataSource(String url, String fieldName)
+    public DataSource(JTextField url, JTextField fieldName)
     {
         this.url = url;
         this.fieldName = fieldName;
     }
     
-    public void setSource(String url)
+    public void setSource(JTextField url)
     {
         this.url = url;
     }
     
-    public void setField(String field)
+    public void setField(JTextField field)
     {
         this.fieldName = field;
     }
     
     public double getData()
     {
-        return Double.parseDouble(NetworkFunctions.fetchData(url, fieldName));
+        return Double.parseDouble(NetworkFunctions.fetchData(url.getText(), fieldName.getText()));
     }
     
 }

@@ -75,6 +75,7 @@ public class DataSet {
         Calendar cutOff = getCutOff();
         while(start < set.size() && set.get(start).getTime().before(cutOff))
             start++;
+        System.out.println("Start: " + start);
     }
     
     public void hardSetStartBound()
@@ -101,6 +102,7 @@ public class DataSet {
                 max = temp;
             }
         }
+        System.out.println("Max: " + max);
     }
     
     public void setMinimum()
@@ -114,6 +116,8 @@ public class DataSet {
                 min = temp;
             }
         }
+        System.out.println("Min: " + min);
+        
     }
     
     public void setRange()
@@ -128,7 +132,7 @@ public class DataSet {
     
     public int convert(double value)
     {
-        return (int)(Math.round((value - min) * ratio));
+        return (int)(parent.getUsableHeight() - Math.round((value - min) * ratio));
     }
     
     public int convertTime(Calendar value)
@@ -138,7 +142,6 @@ public class DataSet {
         int hours = days * 24 + now.get(Calendar.HOUR_OF_DAY) - value.get(Calendar.HOUR_OF_DAY);
         int minutes = hours * 60 + now.get(Calendar.MINUTE) - value.get(Calendar.MINUTE);
         int seconds = minutes * 60 + now.get(Calendar.SECOND) - value.get(Calendar.SECOND);
-        System.out.println((int)(Math.round((double)(seconds) / 60 * ratio )));
         return (int)(Math.round((double)(seconds) / 60 * ratio ));
     }
     
@@ -165,6 +168,7 @@ public class DataSet {
     public ArrayList<Pair> getPointsInRange()
     {
         ArrayList<Pair> ret = new ArrayList<Pair>();
+        System.out.println(range);
         if(range == 0)
         {
             int pos = (int)(Math.round(parent.getUsableHeight()/2));
