@@ -42,6 +42,7 @@ public class Window extends javax.swing.JFrame {
         scale = new javax.swing.JTextField();
         urlField = new javax.swing.JTextField();
         url = new javax.swing.JTextField();
+        pauseButton = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,18 +64,30 @@ public class Window extends javax.swing.JFrame {
 
         url.setText("https://www.bitstamp.net/api/ticker/");
 
+        pauseButton.setText("Pause / Start Stream");
+        pauseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pauseButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(timeInterval, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-                    .addComponent(scale)
-                    .addComponent(urlField)
-                    .addComponent(url, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(timeInterval)
+                            .addComponent(scale)
+                            .addComponent(urlField)
+                            .addComponent(url, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pauseButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mainGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62))
         );
@@ -90,7 +103,9 @@ public class Window extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(urlField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(url, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(url, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(pauseButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(97, 97, 97)
                         .addComponent(mainGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -107,6 +122,14 @@ public class Window extends javax.swing.JFrame {
     private void scaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scaleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_scaleActionPerformed
+
+    private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
+    
+        if(timing.isRunning())
+            timing.pause();
+        else
+            timing.start();
+    }//GEN-LAST:event_pauseButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,6 +171,7 @@ public class Window extends javax.swing.JFrame {
     private DataSource source;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private grapher.GraphComponent mainGraph;
+    private javax.swing.JToggleButton pauseButton;
     private javax.swing.JTextField scale;
     private javax.swing.JTextField timeInterval;
     private javax.swing.JTextField url;

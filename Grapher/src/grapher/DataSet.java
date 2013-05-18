@@ -44,9 +44,6 @@ public class DataSet {
     public void update()
     {
         setStartBound();
-        setMaximum();
-        setMinimum();
-        setRange();
         setRatio();
         parent.repaint();
     }
@@ -142,7 +139,7 @@ public class DataSet {
         int hours = days * 24 + now.get(Calendar.HOUR_OF_DAY) - value.get(Calendar.HOUR_OF_DAY);
         int minutes = hours * 60 + now.get(Calendar.MINUTE) - value.get(Calendar.MINUTE);
         int seconds = minutes * 60 + now.get(Calendar.SECOND) - value.get(Calendar.SECOND);
-        return (int)(Math.round((double)(seconds) / 60 * ratio ));
+        return (int)(parent.getUsableHeight() - Math.round((double)(seconds) / 60 * ratio ));
     }
     
     public void setTimeRatio()
@@ -157,6 +154,9 @@ public class DataSet {
             
     public void setRatio()
     {
+        setMaximum();
+        setMinimum();
+        setRange();
         ratio = parent.getUsableHeight() / range;
     }
     
@@ -180,6 +180,7 @@ public class DataSet {
         {
             DataPoint temp = set.get(i);
             ret.add(new Pair(convertTime(temp.getTime()), convert(temp.getValue())));
+            System.out.println(Integer.toString(convertTime(temp.getTime())) + convert(temp.getValue()));
         }           
         return ret;
     }

@@ -51,4 +51,14 @@ public class DataTiming {
         timer.setDelay(getMillis());
     }
     
+    public void pause()
+    {
+        timer.stop();
+    }
+    
+    public boolean isRunning()
+    {
+        return timer.isRunning();
+    }
+    
 }

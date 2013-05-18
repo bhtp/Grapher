@@ -39,6 +39,7 @@ public class GraphComponent extends JComponent{
             Pair temp = points.get(i);
             //System.out.println(last.x + "," + last.y + "," + temp.x + ","+temp.y);
             g2.drawLine(last.x, last.y, temp.x, temp.y);
+            g2.drawOval(temp.x, temp.y, 2, 2);
             last = temp;
         }
     }
