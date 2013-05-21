@@ -137,6 +137,11 @@ public class DataSet {
         return range;
     }
     
+    public double getMid()
+    {
+        return (min + max)/2;
+    }
+    
     public int convert(double value)
     {
         return (int)(parent.getUsableHeight() - Math.round((value - min) * ratio));
