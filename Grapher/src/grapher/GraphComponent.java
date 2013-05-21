@@ -12,11 +12,13 @@ import javax.swing.JComponent;
 public class GraphComponent extends JComponent{
     
    DataSet set;
+   YAxis yAxis;
     
     public void init(DataSet set)
     {
         this.set = set;
         this.set.setParent(this);
+        this.yAxis = new YAxis(25, set, this);
     }
     
     public int getUsableHeight()
@@ -26,7 +28,7 @@ public class GraphComponent extends JComponent{
     
     public int getUsableWidth()
     {
-        return getWidth() - 10;
+        return getWidth() - yAxis.getWidth();
     }
     
     public static void paintGraph(Graphics2D g2, ArrayList<Pair> points)
@@ -39,7 +41,7 @@ public class GraphComponent extends JComponent{
             Pair temp = points.get(i);
             //System.out.println(last.x + "," + last.y + "," + temp.x + ","+temp.y);
             g2.drawLine(last.x, last.y, temp.x, temp.y);
-            g2.drawOval(temp.x, temp.y, 2, 2);
+            g2.drawOval(temp.x, temp.y, 1, 1);
             last = temp;
         }
     }
@@ -48,6 +50,7 @@ public class GraphComponent extends JComponent{
     {
         Graphics2D g2 = (Graphics2D)(g);
         paintGraph(g2, set.getPointsInRange());
+        yAxis.paint(g2);
         super.paint(g);
     }
     

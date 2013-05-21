@@ -122,6 +122,16 @@ public class DataSet {
         range = max - min;
     }
     
+    public double getMaximum()
+    {
+        return max;
+    }
+    
+    public double getMinimum()
+    {
+        return min;
+    }
+    
     public double getRange()
     {
         return range;
