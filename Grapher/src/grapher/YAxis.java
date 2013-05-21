@@ -24,18 +24,7 @@ public class YAxis {
     
     public void paint(Graphics2D g2)
     {
-        drawString(g2, Double.toString(set.getMaximum()), 0, parent.getUsableHeight());
-        drawString(g2, Double.toString((set.getMaximum() + set.getMinimum())/2), 0, (int)(Math.round(parent.getUsableHeight()/2)));
-        drawString(g2, Double.toString(set.getMinimum()), 0, 0);
-    }
-    
-    public void drawString(Graphics2D g2, String text, int x, int y)
-    {
-        FontRenderContext frContext = g2.getFontRenderContext();
-        Font font = new Font("Helvetica",Font.BOLD, 24);
-        TextLayout textLayout = new TextLayout(text, font, frContext);
-        g2.setColor(Color.black);
-        textLayout.draw(g2, x, y);
+        
     }
     
     public int getHeight()
