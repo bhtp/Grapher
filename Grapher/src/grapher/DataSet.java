@@ -20,6 +20,8 @@ public class DataSet {
     private double max;
     private double min;
     private double range;
+    private boolean empty;
+    public final double DEFAULT_RANGE = 10;
     private DataSource source;
     
     public DataSet(DataSource source, JTextField scaleField)
@@ -28,6 +30,7 @@ public class DataSet {
         this.start = 0;
         this.source = source;
         this.scaleField = scaleField;
+        this.empty = true;
     }
     
     public void setParent(GraphComponent parent)
@@ -72,7 +75,14 @@ public class DataSet {
         Calendar cutOff = getCutOff();
         while(start < set.size() && set.get(start).getTime().before(cutOff))
             start++;
-        System.out.println("Start: " + start);
+        if(start == set.size())
+        {
+            empty = true;
+        }
+        else
+        {
+            empty = false;
+        }
     }
     
     public void hardSetStartBound()
@@ -154,7 +164,7 @@ public class DataSet {
         int hours = days * 24 + now.get(Calendar.HOUR_OF_DAY) - value.get(Calendar.HOUR_OF_DAY);
         int minutes = hours * 60 + now.get(Calendar.MINUTE) - value.get(Calendar.MINUTE);
         int seconds = minutes * 60 + now.get(Calendar.SECOND) - value.get(Calendar.SECOND);
-        return (int)(parent.getUsableHeight() - Math.round((double)(seconds) / 60 * ratio ));
+        return (int)(parent.getUsableWidth() - Math.round((double)(seconds) / 60 * timeRatio ));
     }
     
     public void setTimeRatio()
@@ -180,22 +190,22 @@ public class DataSet {
         return ratio;
     }
     
+    public boolean isEmpty()
+    {
+        return empty;
+    }
+    
     public ArrayList<Pair> getPointsInRange()
     {
         ArrayList<Pair> ret = new ArrayList<Pair>();
-        System.out.println(range);
-        if(range == 0)
+        if(empty)
         {
-            int pos = (int)(Math.round(parent.getUsableHeight()/2));
-            ret.add(new Pair(0,pos));
-            ret.add(new Pair(parent.getUsableWidth(),pos));
-            return ret;
+            ret.add(new Pair(0, 0));
         }
         for(int i = start; i < set.size(); i++)
         {
             DataPoint temp = set.get(i);
             ret.add(new Pair(convertTime(temp.getTime()), convert(temp.getValue())));
-            System.out.println(Integer.toString(convertTime(temp.getTime())) + convert(temp.getValue()));
         }           
         return ret;
     }

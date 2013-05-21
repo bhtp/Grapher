@@ -1,5 +1,6 @@
 package grapher;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -31,17 +32,19 @@ public class GraphComponent extends JComponent{
         return getWidth() - yAxis.getWidth();
     }
     
+    public int getYAxisWidth()
+    {
+        return yAxis.getWidth();
+    }
+    
     public static void paintGraph(Graphics2D g2, ArrayList<Pair> points)
     {
-        if(points.size() == 0)
-            return;
         Pair last = points.get(0);
         for(int i = 0; i < points.size(); i++)
         {
             Pair temp = points.get(i);
-            //System.out.println(last.x + "," + last.y + "," + temp.x + ","+temp.y);
             g2.drawLine(last.x, last.y, temp.x, temp.y);
-            g2.drawOval(temp.x, temp.y, 1, 1);
+            g2.drawOval(temp.x - 1, temp.y - 1, 2, 2);
             last = temp;
         }
     }
@@ -49,6 +52,8 @@ public class GraphComponent extends JComponent{
     public void paint(Graphics g)
     {
         Graphics2D g2 = (Graphics2D)(g);
+        g2.setBackground(Color.white);
+        g2.clearRect(0, 0, getUsableHeight(), getUsableWidth());
         paintGraph(g2, set.getPointsInRange());
         yAxis.paint(g2);
         super.paint(g);
