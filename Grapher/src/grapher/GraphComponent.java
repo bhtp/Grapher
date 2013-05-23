@@ -53,7 +53,7 @@ public class GraphComponent extends JComponent{
     {
         Graphics2D g2 = (Graphics2D)(g);
         g2.setBackground(Color.white);
-        g2.clearRect(0, 0, getUsableHeight(), getUsableWidth());
+        g2.clearRect(getYAxisWidth(), 0, getUsableWidth(), getUsableHeight());
         paintGraph(g2, set.getPointsInRange());
         yAxis.paint(g2);
         super.paint(g);

@@ -164,7 +164,7 @@ public class DataSet {
         int hours = days * 24 + now.get(Calendar.HOUR_OF_DAY) - value.get(Calendar.HOUR_OF_DAY);
         int minutes = hours * 60 + now.get(Calendar.MINUTE) - value.get(Calendar.MINUTE);
         int seconds = minutes * 60 + now.get(Calendar.SECOND) - value.get(Calendar.SECOND);
-        return (int)(parent.getUsableWidth() - Math.round((double)(seconds) / 60 * timeRatio ));
+        return (int)(parent.getUsableWidth() - Math.round((double)(seconds) / 60 * timeRatio ) + parent.getYAxisWidth());
     }
     
     public void setTimeRatio()
@@ -200,7 +200,7 @@ public class DataSet {
         ArrayList<Pair> ret = new ArrayList<Pair>();
         if(empty)
         {
-            ret.add(new Pair(0, 0));
+            ret.add(new Pair((int)(parent.getUsableWidth() + parent.getYAxisWidth()), (int)(Math.round(parent.getUsableHeight()/2))));
         }
         for(int i = start; i < set.size(); i++)
         {
