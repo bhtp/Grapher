@@ -1,6 +1,7 @@
 package grapher;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class GraphComponent extends JComponent{
     {
         this.set = set;
         this.set.setParent(this);
-        this.yAxis = new YAxis(25, set, this);
+        this.yAxis = new YAxis(25, set, this, new Font("Arial", Font.PLAIN, 18));
     }
     
     public int getUsableHeight()
