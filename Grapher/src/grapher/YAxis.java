@@ -46,7 +46,7 @@ public class YAxis {
     public void drawString(double value, double pos, Graphics2D g2, FontMetrics metrics, boolean force)
     {
         String val = truncateString(value);
-        drawString(g2, val, 0, (int)(Math.round(parent.getUsableHeight() * pos + metrics.getHeight() * 0.5)));
+        drawString(g2, val, 0, (int)(Math.round(parent.getUsableHeight() * pos) - (metrics.getHeight() * 0.5) + parent.PADDING));
         int newWidth = metrics.stringWidth(val);
         if( newWidth > width || force)
         {
@@ -64,7 +64,7 @@ public class YAxis {
         FontRenderContext frContext = g2.getFontRenderContext();   
         TextLayout textLayout = new TextLayout(text, font, frContext);  
         g2.setColor(Color.black);
-        textLayout.draw(g2, x, y);  
+        textLayout.draw(g2, x, y + parent.PADDING);  
     }    
 
     

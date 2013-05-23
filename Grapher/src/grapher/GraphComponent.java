@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import javax.swing.JComponent;
-import javax.swing.JToggleButton;
 
 /**
  *
@@ -34,7 +33,7 @@ public class GraphComponent extends JComponent{
     
     public int getUsableHeight()
     {
-        return getHeight() - 10 - PADDING * 2;
+        return getHeight() - (PADDING * 2 + 10);
     }
     
     public int getUsableWidth()
@@ -70,7 +69,7 @@ public class GraphComponent extends JComponent{
         Graphics2D g2 = (Graphics2D)(g);
         g2.setBackground(Color.white);
         yAxis.paint(g2);
-        g2.clearRect(getYAxisWidth(), 0, getUsableWidth(), getUsableHeight());
+        g2.clearRect(getYAxisWidth(), PADDING, getUsableWidth(), getUsableHeight());
         paintGraph(g2, set.getPointsInRange());
         super.paint(g);
     }
