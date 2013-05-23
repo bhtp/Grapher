@@ -10,6 +10,8 @@ public class DataSource {
     
     private JTextField url;
     private JTextField fieldName;
+    private String urlString;
+    private String fieldString;
     
     public DataSource()
     {
@@ -21,21 +23,23 @@ public class DataSource {
     {
         this.url = url;
         this.fieldName = fieldName;
+        setSource();
+        setField();
     }
     
-    public void setSource(JTextField url)
+    public void setSource()
     {
-        this.url = url;
+        this.urlString = url.getText();
     }
     
-    public void setField(JTextField field)
+    public void setField()
     {
-        this.fieldName = field;
+        this.fieldString = fieldName.getText();
     }
     
     public double getData()
     {
-        return Double.parseDouble(NetworkFunctions.fetchData(url.getText(), fieldName.getText()));
+        return Double.parseDouble(NetworkFunctions.fetchData(urlString, fieldString));
     }
     
 }
