@@ -17,6 +17,7 @@ public class YAxis {
     private DataSet set;
     private GraphComponent parent;
     private Font font;
+    private final int PADDING = 2;
     
     public YAxis(int width, DataSet set, GraphComponent parent, Font font)
     {
@@ -28,7 +29,7 @@ public class YAxis {
     
     public void paint(Graphics2D g2)  
     {  
-        FontMetrics metrics = g2.getFontMetrics();
+        FontMetrics metrics = g2.getFontMetrics(font);
         
         String mid = truncateString(set.getMid());
         drawString(g2, mid , 0, (int)(Math.round(parent.getUsableHeight()/2) + metrics.getHeight()/2));
@@ -41,14 +42,19 @@ public class YAxis {
             drawString(g2, min, 0, parent.getUsableHeight());
             newWidth = metrics.stringWidth(min);
             if( newWidth > width)
+            {
                 width = newWidth;
+            }
 
             String max = truncateString(set.getMaximum());
             drawString(g2, max, 0, 0 + metrics.getHeight());
             newWidth = metrics.stringWidth(max);
             if( newWidth > width)
+            {
                 width = newWidth;
+            }
         }
+        parent.set.setTimeRatio();
     }     
 
    public static String truncateString(double raw)
@@ -72,7 +78,7 @@ public class YAxis {
     
     public int getWidth()
     {
-        return width;
+        return width + PADDING;
     }
     
 }

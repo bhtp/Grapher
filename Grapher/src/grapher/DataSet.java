@@ -21,7 +21,6 @@ public class DataSet {
     private double min;
     private double range;
     private boolean empty;
-    public final double DEFAULT_RANGE = 10;
     private DataSource source;
     
     public DataSet(DataSource source, JTextField scaleField)
@@ -49,6 +48,11 @@ public class DataSet {
         setStartBound();
         setRatio();
         parent.repaint();
+    }
+    
+    public void scaleUpdate()
+    {
+        setTimeRatio();
     }
     
     public void hardUpdate()
@@ -196,7 +200,7 @@ public class DataSet {
     
     public boolean isFlat()
     {
-        return range==0;
+        return (range == 0);
     }
     
     public boolean isEmpty()
