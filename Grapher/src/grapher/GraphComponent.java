@@ -43,8 +43,6 @@ public class GraphComponent extends JComponent{
     
     public int getYAxisWidth()
     {
-        if(yAxis == null)
-            return 0;
         return yAxis.getWidth();
     }
     

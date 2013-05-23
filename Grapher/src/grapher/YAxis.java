@@ -31,35 +31,32 @@ public class YAxis {
     {  
         FontMetrics metrics = g2.getFontMetrics(font);
         
-        String mid = truncateString(set.getMid());
-        drawString(g2, mid , 0, (int)(Math.round(parent.getUsableHeight()/2) + metrics.getHeight()/2));
-        int newWidth = metrics.stringWidth(mid);
-        width = newWidth;
+        drawString(set.getMid(), 0.5, g2, metrics, true);
         
         if(!parent.set.isFlat())
         {
-            String min = truncateString(set.getMinimum());
-            drawString(g2, min, 0, parent.getUsableHeight());
-            newWidth = metrics.stringWidth(min);
-            if( newWidth > width)
-            {
-                width = newWidth;
-            }
-
-            String max = truncateString(set.getMaximum());
-            drawString(g2, max, 0, 0 + metrics.getHeight());
-            newWidth = metrics.stringWidth(max);
-            if( newWidth > width)
-            {
-                width = newWidth;
-            }
+            drawString(set.getMaximum(), 0, g2, metrics, false);
+            drawString((set.getMaximum() + set.getMid())/2, 0.25, g2, metrics, false);
+            drawString((set.getMinimum() + set.getMid())/2, 0.75, g2, metrics, false);
+            drawString(set.getMinimum(), 1, g2, metrics, false);
         }
         parent.set.setTimeRatio();
     }     
+    
+    public void drawString(double value, double pos, Graphics2D g2, FontMetrics metrics, boolean force)
+    {
+        String val = truncateString(value);
+        drawString(g2, val, 0, (int)(Math.round(parent.getUsableHeight() * pos + metrics.getHeight() * (1-pos))));
+        int newWidth = metrics.stringWidth(val);
+        if( newWidth > width || force)
+        {
+            width = newWidth;
+        }
+    }
 
    public static String truncateString(double raw)
    {
-       return Double.toString((int)(Math.round(raw * 100))/100);
+       return Double.toString((double)((int)(Math.round(raw * 100)))/100);
    }
     
    public void drawString(Graphics2D g2, String text, int x, int y)  
