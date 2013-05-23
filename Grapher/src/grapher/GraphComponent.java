@@ -13,8 +13,8 @@ import javax.swing.JComponent;
  */
 public class GraphComponent extends JComponent{
     
-   DataSet set;
-   YAxis yAxis;
+   public DataSet set;
+   public YAxis yAxis;
     
     public void init(DataSet set)
     {

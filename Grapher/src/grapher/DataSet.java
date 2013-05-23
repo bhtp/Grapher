@@ -194,6 +194,11 @@ public class DataSet {
         return ratio;
     }
     
+    public boolean isFlat()
+    {
+        return range==0;
+    }
+    
     public boolean isEmpty()
     {
         return empty;
