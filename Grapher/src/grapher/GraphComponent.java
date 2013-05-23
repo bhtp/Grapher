@@ -17,6 +17,7 @@ public class GraphComponent extends JComponent{
    public DataSet set;
    public YAxis yAxis;
    public boolean circles;
+   public final int PADDING = 15;
     
     public void init(DataSet set)
     {
@@ -33,7 +34,7 @@ public class GraphComponent extends JComponent{
     
     public int getUsableHeight()
     {
-        return getHeight() - 10;
+        return getHeight() - 10 - PADDING * 2;
     }
     
     public int getUsableWidth()
@@ -46,15 +47,20 @@ public class GraphComponent extends JComponent{
         return yAxis.getWidth();
     }
     
+    public int getXAxisHeight()
+    {
+        return 10;
+    }
+    
     public void paintGraph(Graphics2D g2, ArrayList<Pair> points)
     {
         Pair last = points.get(0);
         for(int i = 0; i < points.size(); i++)
         {
             Pair temp = points.get(i);
-            g2.drawLine(last.x, last.y, temp.x, temp.y);
+            g2.drawLine(last.x, last.y + PADDING, temp.x, temp.y + PADDING);
             if(circles)
-                g2.drawOval(temp.x - 1, temp.y - 1, 2, 2);
+                g2.drawOval(temp.x - 1, temp.y - 1 + PADDING, 2, 2);
             last = temp;
         }
     }

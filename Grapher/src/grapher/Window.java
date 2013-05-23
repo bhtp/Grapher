@@ -205,6 +205,7 @@ public class Window extends javax.swing.JFrame {
 
     private void urlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_urlActionPerformed
         source.setSource();
+        updateLabel();
     }//GEN-LAST:event_urlActionPerformed
 
     private void timeIntervalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeIntervalActionPerformed

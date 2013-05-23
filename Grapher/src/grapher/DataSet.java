@@ -113,7 +113,6 @@ public class DataSet {
                 max = temp;
             }
         }
-        System.out.println("Max: " + max);
     }
     
     public void setMinimum()
@@ -126,9 +125,7 @@ public class DataSet {
             {
                 min = temp;
             }
-        }
-        System.out.println("Min: " + min);
-        
+        }   
     }
     
     public void setRange()

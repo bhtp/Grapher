@@ -46,7 +46,7 @@ public class YAxis {
     public void drawString(double value, double pos, Graphics2D g2, FontMetrics metrics, boolean force)
     {
         String val = truncateString(value);
-        drawString(g2, val, 0, (int)(Math.round(parent.getUsableHeight() * pos + metrics.getHeight() * (1-pos))));
+        drawString(g2, val, 0, (int)(Math.round(parent.getUsableHeight() * pos + metrics.getHeight() * 0.5)));
         int newWidth = metrics.stringWidth(val);
         if( newWidth > width || force)
         {
