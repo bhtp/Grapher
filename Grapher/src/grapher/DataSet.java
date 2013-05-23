@@ -154,6 +154,10 @@ public class DataSet {
     
     public int convert(double value)
     {
+        if(range == 0)
+        {
+            return (int)(Math.round(parent.getUsableHeight()/2));
+        }
         return (int)(parent.getUsableHeight() - Math.round((value - min) * ratio));
     }
     
@@ -182,7 +186,7 @@ public class DataSet {
         setMaximum();
         setMinimum();
         setRange();
-        ratio = parent.getUsableHeight() / range;
+         ratio = parent.getUsableHeight() / range;
     }
     
     public double getRatio()

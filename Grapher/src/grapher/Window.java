@@ -47,6 +47,11 @@ public class Window extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         timeInterval.setText("0.1");
+        timeInterval.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeIntervalActionPerformed(evt);
+            }
+        });
 
         scale.setText("1");
         scale.addActionListener(new java.awt.event.ActionListener() {
@@ -63,6 +68,11 @@ public class Window extends javax.swing.JFrame {
         });
 
         url.setText("https://www.bitstamp.net/api/ticker/");
+        url.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                urlActionPerformed(evt);
+            }
+        });
 
         pauseButton.setText("Pause / Start Stream");
         pauseButton.addActionListener(new java.awt.event.ActionListener() {
@@ -116,11 +126,11 @@ public class Window extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void urlFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_urlFieldActionPerformed
-        
+        source.setField();
     }//GEN-LAST:event_urlFieldActionPerformed
 
     private void scaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scaleActionPerformed
-        // TODO add your handling code here:
+        set.setScale();
     }//GEN-LAST:event_scaleActionPerformed
 
     private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
@@ -130,6 +140,14 @@ public class Window extends javax.swing.JFrame {
         else
             timing.start();
     }//GEN-LAST:event_pauseButtonActionPerformed
+
+    private void urlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_urlActionPerformed
+        source.setSource();
+    }//GEN-LAST:event_urlActionPerformed
+
+    private void timeIntervalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeIntervalActionPerformed
+        timing.updateInterval();
+    }//GEN-LAST:event_timeIntervalActionPerformed
 
     /**
      * @param args the command line arguments
