@@ -98,7 +98,6 @@ public class DataSet {
     public void add(DataPoint d)
     {
         set.add(d);
-        System.out.println("Value:" + d.value);
         update();
     }
     
