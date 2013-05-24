@@ -18,6 +18,8 @@ public class GraphComponent extends JComponent{
    public YAxis yAxis;
    public boolean circles;
    public final int PADDING = 15;
+   public final int CIRCLE_RADIUS = 4;
+   public final int STROKE_WIDTH = 2;
     
     public void init(DataSet set)
     {
@@ -58,10 +60,10 @@ public class GraphComponent extends JComponent{
         for(int i = 0; i < points.size(); i++)
         {
             Pair temp = points.get(i);
-            g2.setStroke(new BasicStroke(2));
-            g2.drawLine(last.x, last.y + PADDING, temp.x, temp.y + PADDING);
+            g2.setStroke(new BasicStroke(STROKE_WIDTH));
+            g2.drawLine(last.x - STROKE_WIDTH/2, last.y + PADDING, temp.x - STROKE_WIDTH/2, temp.y + PADDING);
             if(circles)
-                g2.drawOval(temp.x - 1, temp.y - 1 + PADDING, 4, 4);
+                g2.drawOval(temp.x - CIRCLE_RADIUS / 2, temp.y - CIRCLE_RADIUS / 2 + PADDING, CIRCLE_RADIUS, CIRCLE_RADIUS);
             last = temp;
         }
     }
