@@ -51,7 +51,7 @@ public class YAxis {
         }
         
         g2.setBackground(Color.lightGray);
-        g2.clearRect(0, parent.PADDING, width, parent.getUsableHeight());
+        g2.clearRect(0, 0, width, parent.getHeight());
         
         drawString(mid, 0.5, g2, metrics);
         
