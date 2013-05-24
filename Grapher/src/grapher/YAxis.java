@@ -30,27 +30,58 @@ public class YAxis {
     {  
         FontMetrics metrics = g2.getFontMetrics(font);
         
-        drawString(set.getMid(), 0.5, g2, metrics, true);
+        String mid = truncateString(set.getMid());
+        updateWidth(mid, metrics, true);
+        
+        String max = null, maxMid = null, minMid = null, min = null;
         
         if(!parent.set.isFlat())
         {
-            drawString(set.getMaximum(), 0, g2, metrics, false);
-            drawString((set.getMaximum() + set.getMid())/2, 0.25, g2, metrics, false);
-            drawString((set.getMinimum() + set.getMid())/2, 0.75, g2, metrics, false);
-            drawString(set.getMinimum(), 1, g2, metrics, false);
+            max = truncateString(set.getMaximum());
+            updateWidth(max, metrics, false);
+            
+            maxMid = truncateString(set.getMaximum());
+            updateWidth(maxMid, metrics, false);
+            
+            minMid = truncateString(set.getMaximum());
+            updateWidth(minMid, metrics, false);
+                        
+            min = truncateString(set.getMaximum());
+            updateWidth(min, metrics, false);
         }
+        
+        g2.setBackground(Color.lightGray);
+        g2.clearRect(0, parent.PADDING, width, parent.getUsableHeight());
+        
+        drawString(mid, 0.5, g2, metrics);
+        
+        if(!parent.set.isFlat())
+        {
+            drawString(max, 0, g2, metrics);
+            drawString(maxMid, 0.25, g2, metrics);
+            drawString(minMid, 0.75, g2, metrics);
+            drawString(min, 1, g2, metrics);
+        }
+        
         parent.set.setTimeRatio();
     }     
     
-    public void drawString(double value, double pos, Graphics2D g2, FontMetrics metrics, boolean force)
+    public void updateWidth(String val, FontMetrics metrics, boolean force)
     {
-        String val = truncateString(value);
-        drawString(g2, val, 0, (int)(Math.round(parent.getUsableHeight() * pos) - (metrics.getHeight() * 0.5) + parent.PADDING));
         int newWidth = metrics.stringWidth(val);
         if( newWidth > width || force)
         {
             width = newWidth;
         }
+    }
+    
+    public void drawString(String val, double pos, Graphics2D g2, FontMetrics metrics)
+    {
+        drawString(g2, val, 0, (int)(Math.round(parent.getUsableHeight() * pos) - (metrics.getHeight() * 0.5) + parent.PADDING));
+        int yPos = (int)(Math.round(parent.getUsableHeight() * pos) + parent.PADDING);
+        g2.setColor(Color.gray);
+        g2.drawLine(width, yPos, parent.getWidth(), yPos);
+        g2.setColor(Color.black);
     }
 
    public static String truncateString(double raw)

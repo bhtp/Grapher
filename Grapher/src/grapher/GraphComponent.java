@@ -1,5 +1,6 @@
 package grapher;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -57,6 +58,7 @@ public class GraphComponent extends JComponent{
         for(int i = 0; i < points.size(); i++)
         {
             Pair temp = points.get(i);
+            g2.setStroke(new BasicStroke(1));
             g2.drawLine(last.x, last.y + PADDING, temp.x, temp.y + PADDING);
             if(circles)
                 g2.drawOval(temp.x - 1, temp.y - 1 + PADDING, 2, 2);
@@ -68,8 +70,8 @@ public class GraphComponent extends JComponent{
     {
         Graphics2D g2 = (Graphics2D)(g);
         g2.setBackground(Color.white);
+        g2.clearRect(0, PADDING, getWidth(), getUsableHeight());
         yAxis.paint(g2);
-        g2.clearRect(getYAxisWidth(), PADDING, getUsableWidth(), getUsableHeight());
         paintGraph(g2, set.getPointsInRange());
         super.paint(g);
     }
