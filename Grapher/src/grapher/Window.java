@@ -57,7 +57,7 @@ public class Window extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Grapher V0.4");
+        setTitle("Grapher V0.61");
 
         timeInterval.setText("0.1");
         timeInterval.addActionListener(new java.awt.event.ActionListener() {

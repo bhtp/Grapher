@@ -40,13 +40,13 @@ public class YAxis {
             max = truncateString(set.getMaximum());
             updateWidth(max, metrics, false);
             
-            maxMid = truncateString(set.getMaximum());
+            maxMid = truncateString((set.getMaximum() + set.getMid())/2);
             updateWidth(maxMid, metrics, false);
             
-            minMid = truncateString(set.getMaximum());
+            minMid = truncateString((set.getMinimum() + set.getMid())/2);
             updateWidth(minMid, metrics, false);
                         
-            min = truncateString(set.getMaximum());
+            min = truncateString(set.getMinimum());
             updateWidth(min, metrics, false);
         }
         
