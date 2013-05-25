@@ -25,38 +25,55 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel2" alignment="1" min="-2" pref="92" max="-2" attributes="0"/>
-                  <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel4" max="32767" attributes="0"/>
                           <Component id="jLabel3" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="circleToggle" max="32767" attributes="0"/>
+                          <Component id="urlField" pref="120" max="32767" attributes="0"/>
+                          <Component id="url" pref="120" max="32767" attributes="0"/>
+                          <Component id="pauseButton" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" pref="92" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="scale" min="-2" pref="120" max="-2" attributes="0"/>
+                          <Component id="timeInterval" min="-2" pref="120" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="premadeChoice" min="-2" pref="260" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="circleToggle" max="32767" attributes="0"/>
-                  <Component id="scale" pref="120" max="32767" attributes="0"/>
-                  <Component id="urlField" pref="120" max="32767" attributes="0"/>
-                  <Component id="url" pref="120" max="32767" attributes="0"/>
-                  <Component id="timeInterval" alignment="0" pref="120" max="32767" attributes="0"/>
-                  <Component id="pauseButton" alignment="0" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="graphLabel" pref="494" max="32767" attributes="0"/>
-                  <Component id="mainGraph" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="graphLabel" min="-2" pref="464" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="mainGraph" pref="464" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace pref="192" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="timeInterval" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -66,6 +83,8 @@
                   <Component id="scale" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="premadeChoice" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="urlField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -78,16 +97,16 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="pauseButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="circleToggle" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="212" max="32767" attributes="0"/>
+              <EmptySpace pref="205" max="32767" attributes="0"/>
           </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-              <Component id="graphLabel" min="-2" pref="29" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+              <Component id="graphLabel" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="mainGraph" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -119,17 +138,11 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="urlField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="last"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="urlFieldActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="url">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="https://www.bitstamp.net/api/ticker/"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="urlActionPerformed"/>
       </Events>
@@ -137,7 +150,6 @@
     <Component class="javax.swing.JToggleButton" name="pauseButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Toggle Updates"/>
-        <Property name="actionCommand" type="java.lang.String" value="Toggle Updates"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pauseButtonActionPerformed"/>
@@ -150,15 +162,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="circleToggleActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="graphLabel">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="18" style="0"/>
-        </Property>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="loading..."/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -182,6 +185,20 @@
       <Properties>
         <Property name="horizontalAlignment" type="int" value="4"/>
         <Property name="text" type="java.lang.String" value="Data Source (URL)"/>
+      </Properties>
+    </Component>
+    <Component class="java.awt.Choice" name="premadeChoice">
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="premadeChoiceItemStateChanged"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="graphLabel">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="18" style="0"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="loading..."/>
       </Properties>
     </Component>
   </SubComponents>

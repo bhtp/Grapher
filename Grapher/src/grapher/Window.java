@@ -4,6 +4,8 @@
  */
 package grapher;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author 308809052
@@ -24,16 +26,40 @@ public class Window extends javax.swing.JFrame {
         set.setParent(mainGraph);
         mainGraph.init(set);
         timing = new DataTiming(set, timeInterval);
-        timing.start();
         set.setScale();
         updateLabel();
+        premades = new ArrayList<Premade>();
+        addPremade(new Premade("https://www.bitstamp.net/api/ticker/", "last"));
     }
     
     private void updateLabel()
     {
         graphLabel.setText(urlField.getText() + " @ " + url.getText());
+        if(url.getText().isEmpty() || urlField.getText().isEmpty())
+        {
+            timing.pause();
+        }
+        else
+        {
+            timing.start();
+        }
+    }
+    
+    private void setToPremade(Premade in)
+    {
+        url.setText(in.url);
+        urlField.setText(in.urlField);
+        urlActionPerformed(null);
+        urlFieldActionPerformed(null);
     }
 
+    private void addPremade(Premade in)
+    {
+        premades.add(in);
+        premadeChoice.add(in.toString());
+        updateLabel();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,11 +76,12 @@ public class Window extends javax.swing.JFrame {
         url = new javax.swing.JTextField();
         pauseButton = new javax.swing.JToggleButton();
         circleToggle = new javax.swing.JToggleButton();
-        graphLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        premadeChoice = new java.awt.Choice();
+        graphLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Grapher V0.62");
@@ -73,14 +100,12 @@ public class Window extends javax.swing.JFrame {
             }
         });
 
-        urlField.setText("last");
         urlField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 urlFieldActionPerformed(evt);
             }
         });
 
-        url.setText("https://www.bitstamp.net/api/ticker/");
         url.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 urlActionPerformed(evt);
@@ -88,7 +113,6 @@ public class Window extends javax.swing.JFrame {
         });
 
         pauseButton.setText("Toggle Updates");
-        pauseButton.setActionCommand("Toggle Updates");
         pauseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pauseButtonActionPerformed(evt);
@@ -102,10 +126,6 @@ public class Window extends javax.swing.JFrame {
             }
         });
 
-        graphLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        graphLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        graphLabel.setText("loading...");
-
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Update Interval(M)");
 
@@ -118,37 +138,58 @@ public class Window extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Data Source (URL)");
 
+        premadeChoice.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                premadeChoiceItemStateChanged(evt);
+            }
+        });
+
+        graphLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        graphLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        graphLabel.setText("loading...");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(circleToggle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(urlField, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(url, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(pauseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scale, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(timeInterval, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(premadeChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(circleToggle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scale, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                    .addComponent(urlField, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                    .addComponent(url, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                    .addComponent(timeInterval, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                    .addComponent(pauseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(graphLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
-                    .addComponent(mainGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(50, 50, 50))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(graphLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(mainGraph, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                        .addGap(50, 50, 50))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(192, Short.MAX_VALUE)
+                .addGap(148, 148, 148)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(timeInterval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -156,6 +197,8 @@ public class Window extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(scale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addComponent(premadeChoice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(urlField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -166,15 +209,15 @@ public class Window extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(pauseButton)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(circleToggle)
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addContainerGap(205, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(graphLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87)
+                .addComponent(graphLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mainGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(90, 90, 90))
+                .addGap(153, 153, 153))
         );
 
         scale.getAccessibleContext().setAccessibleName("");
@@ -217,6 +260,10 @@ public class Window extends javax.swing.JFrame {
         mainGraph.repaint();
     }//GEN-LAST:event_circleToggleActionPerformed
 
+    private void premadeChoiceItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_premadeChoiceItemStateChanged
+        setToPremade(premades.get(premadeChoice.getSelectedIndex()));
+    }//GEN-LAST:event_premadeChoiceItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -255,6 +302,7 @@ public class Window extends javax.swing.JFrame {
     private DataSet set;
     private DataTiming timing;
     private DataSource source;
+    private ArrayList<Premade> premades;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton circleToggle;
     private javax.swing.JLabel graphLabel;
@@ -264,6 +312,7 @@ public class Window extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private grapher.GraphComponent mainGraph;
     private javax.swing.JToggleButton pauseButton;
+    private java.awt.Choice premadeChoice;
     private javax.swing.JTextField scale;
     private javax.swing.JTextField timeInterval;
     private javax.swing.JTextField url;
