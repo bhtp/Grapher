@@ -25,36 +25,36 @@ public class YAxis {
         this.parent = parent;
         this.font = font;
     }
-    
+
     public void paint(Graphics2D g2)  
     {  
         FontMetrics metrics = g2.getFontMetrics(font);
-        
+
         String mid = truncateString(set.getMid());
         updateWidth(mid, metrics, true);
-        
+
         String max = null, maxMid = null, minMid = null, min = null;
-        
+
         if(!parent.set.isFlat())
         {
             max = truncateString(set.getMaximum());
             updateWidth(max, metrics, false);
-            
+
             maxMid = truncateString((set.getMaximum() + set.getMid())/2);
             updateWidth(maxMid, metrics, false);
-            
+
             minMid = truncateString((set.getMinimum() + set.getMid())/2);
             updateWidth(minMid, metrics, false);
-                        
+
             min = truncateString(set.getMinimum());
             updateWidth(min, metrics, false);
         }
-        
+
         g2.setBackground(Color.lightGray);
-        g2.clearRect(0, 0, width, parent.getHeight());
-        
+        g2.clearRect(0, 0, width, parent.getUsableHeight() + parent.PADDING);
+
         drawString(mid, 0.5, g2, metrics);
-        
+
         if(!parent.set.isFlat())
         {
             drawString(max, 0, g2, metrics);
@@ -62,10 +62,10 @@ public class YAxis {
             drawString(minMid, 0.75, g2, metrics);
             drawString(min, 1, g2, metrics);
         }
-        
+
         parent.set.setTimeRatio();
     }     
-    
+
     public void updateWidth(String val, FontMetrics metrics, boolean force)
     {
         int newWidth = metrics.stringWidth(val);
@@ -74,35 +74,34 @@ public class YAxis {
             width = newWidth;
         }
     }
-    
+
     public void drawString(String val, double pos, Graphics2D g2, FontMetrics metrics)
     {
-        drawString(g2, val, 0, (int)(Math.round(parent.getUsableHeight() * pos) - (metrics.getHeight() * 0.5) + parent.PADDING));
+        renderString(g2, val, 0, (int)(Math.round(parent.getUsableHeight() * pos) - (metrics.getHeight() * 0.5) + parent.PADDING));
         int yPos = (int)(Math.round(parent.getUsableHeight() * pos) + parent.PADDING);
         g2.setColor(Color.gray);
         g2.drawLine(width, yPos, parent.getWidth(), yPos);
         g2.setColor(Color.black);
     }
 
-   public static String truncateString(double raw)
-   {
-       return Double.toString((double)((int)(Math.round(raw * 100)))/100);
-   }
-    
-   public void drawString(Graphics2D g2, String text, int x, int y)  
-   {  
+    public void renderString(Graphics2D g2, String text, int x, int y)  
+    {  
         FontRenderContext frContext = g2.getFontRenderContext();   
         TextLayout textLayout = new TextLayout(text, font, frContext);  
         g2.setColor(Color.black);
         textLayout.draw(g2, x, y + parent.PADDING);  
-    }    
+    }  
 
-    
+    public static String truncateString(double raw)
+    {
+       return Double.toString((double)((int)(Math.round(raw * 100)))/100);
+    }
+   
     public int getHeight()
     {
         return parent.getUsableHeight();
     }
-    
+
     public int getWidth()
     {
         return width + PADDING;

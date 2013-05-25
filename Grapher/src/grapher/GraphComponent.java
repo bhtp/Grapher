@@ -63,7 +63,7 @@ public class GraphComponent extends JComponent{
             g2.setStroke(new BasicStroke(STROKE_WIDTH));
             g2.drawLine(last.x - STROKE_WIDTH/2, last.y + PADDING, temp.x - STROKE_WIDTH/2, temp.y + PADDING);
             if(circles)
-                g2.drawOval(temp.x - CIRCLE_RADIUS / 2, temp.y - CIRCLE_RADIUS / 2 + PADDING, CIRCLE_RADIUS, CIRCLE_RADIUS);
+                g2.drawOval(temp.x - CIRCLE_RADIUS / 2 - 1, temp.y - CIRCLE_RADIUS / 2 - 1 + PADDING, CIRCLE_RADIUS, CIRCLE_RADIUS);
             last = temp;
         }
     }
@@ -72,7 +72,7 @@ public class GraphComponent extends JComponent{
     {
         Graphics2D g2 = (Graphics2D)(g);
         g2.setBackground(Color.white);
-        g2.clearRect(0, 0, getWidth(), getHeight());
+        g2.clearRect(0, 0, getWidth(), getUsableHeight() + PADDING);
         yAxis.paint(g2);
         paintGraph(g2, set.getPointsInRange());
         super.paint(g);
