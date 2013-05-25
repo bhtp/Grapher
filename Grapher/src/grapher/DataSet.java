@@ -224,4 +224,11 @@ public class DataSet {
         add(new DataPoint(source.getData()));
     }
     
+    public void clear()
+    {
+        set.clear();
+        hardUpdate();
+        update();
+    }
+    
 }
