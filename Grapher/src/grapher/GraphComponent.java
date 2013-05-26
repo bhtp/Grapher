@@ -16,6 +16,7 @@ public class GraphComponent extends JComponent{
     
    public DataSet set;
    public YAxis yAxis;
+   public XAxis xAxis;
    public boolean circles;
    public final int PADDING = 15;
    public final int CIRCLE_RADIUS = 4;
@@ -26,6 +27,7 @@ public class GraphComponent extends JComponent{
         this.set = set;
         this.set.setParent(this);
         this.yAxis = new YAxis(25, set, this, new Font("Arial", Font.PLAIN, 18));
+        this.xAxis = new XAxis(25, set, this, new Font("Arial", Font.PLAIN, 18));
         this.circles = false;
     }
     
@@ -36,7 +38,7 @@ public class GraphComponent extends JComponent{
     
     public int getUsableHeight()
     {
-        return getHeight() - (PADDING * 2 + 10);
+        return getHeight() - (PADDING * 2) - xAxis.getHeight();
     }
     
     public int getUsableWidth()
@@ -51,7 +53,7 @@ public class GraphComponent extends JComponent{
     
     public int getXAxisHeight()
     {
-        return 10;
+        return xAxis.getHeight();
     }
     
     public void paintGraph(Graphics2D g2, ArrayList<Pair> points)
@@ -72,8 +74,9 @@ public class GraphComponent extends JComponent{
     {
         Graphics2D g2 = (Graphics2D)(g);
         g2.setBackground(Color.white);
-        g2.clearRect(0, 0, getWidth(), getUsableHeight() + PADDING);
+        g2.clearRect(0, 0, getWidth(), getUsableHeight() + PADDING*2);
         yAxis.paint(g2);
+        xAxis.paint(g2);
         paintGraph(g2, set.getPointsInRange());
         super.paint(g);
     }

@@ -17,6 +17,7 @@ public class YAxis {
     private GraphComponent parent;
     private Font font;
     private final int PADDING = 2;
+    private final static Color BG_COLOR = Color.lightGray;
     
     public YAxis(int width, DataSet set, GraphComponent parent, Font font)
     {
@@ -50,8 +51,8 @@ public class YAxis {
             updateWidth(min, metrics, false);
         }
 
-        g2.setBackground(Color.lightGray);
-        g2.clearRect(0, 0, width, parent.getUsableHeight() + parent.PADDING);
+        g2.setBackground(BG_COLOR);
+        g2.clearRect(0, 0, width, parent.getUsableHeight() + parent.PADDING*2);
 
         drawString(mid, 0.5, g2, metrics);
 

@@ -21,6 +21,8 @@ public class DataSet {
     private double min;
     private double range;
     private boolean empty;
+    private Calendar now;
+    private Calendar axisNow;
     private DataSource source;
     
     public DataSet(DataSource source, JTextField scaleField)
@@ -70,7 +72,7 @@ public class DataSet {
     public Calendar getCutOff()
     {
         Calendar temp = Calendar.getInstance();
-        temp.add(Calendar.MINUTE, -scale);
+        temp.add(Calendar.HOUR, -scale);
         return temp;
     }
     
@@ -163,12 +165,11 @@ public class DataSet {
     
     public int convertTime(Calendar value)
     {
-        Calendar now = Calendar.getInstance();
         int days = now.get(Calendar.DAY_OF_YEAR) - value.get(Calendar.DAY_OF_YEAR);
         int hours = days * 24 + now.get(Calendar.HOUR_OF_DAY) - value.get(Calendar.HOUR_OF_DAY);
         int minutes = hours * 60 + now.get(Calendar.MINUTE) - value.get(Calendar.MINUTE);
         int seconds = minutes * 60 + now.get(Calendar.SECOND) - value.get(Calendar.SECOND);
-        return (int)(parent.getUsableWidth() - Math.round((double)(seconds) / 60 * timeRatio ) + parent.getYAxisWidth());
+        return (int)(parent.getUsableWidth() - Math.round((double)(seconds) / 3600 * timeRatio ) + parent.getYAxisWidth());
     }
     
     public void setTimeRatio()
@@ -179,6 +180,30 @@ public class DataSet {
     public double getTimeRatio()
     {
         return timeRatio;
+    }
+    
+    public void setNow()
+    {
+        now = Calendar.getInstance();
+        axisNow = (Calendar)(now.clone());
+    }
+    
+    public String getTimeAt(int LABELS)
+    {
+        axisNow.add(Calendar.MINUTE, -(scale / LABELS));
+        if(scale <= 24)
+        {
+            return getTime();
+        }
+        else
+        {
+            return axisNow.get(Calendar.DAY_OF_MONTH) + "/" + axisNow.get(Calendar.MONTH) + " " + getTime();
+        }
+    }
+    
+    public String getTime()
+    {
+        return axisNow.get(Calendar.HOUR_OF_DAY) + " : " + axisNow.get(Calendar.MINUTE);
     }
             
     public void setRatio()
