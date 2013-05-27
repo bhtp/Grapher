@@ -25,6 +25,11 @@ public class DataSet {
     private Calendar axisNow;
     private DataSource source;
     
+    /**
+     * instantiates a DataSet
+     * @param source the source of the exchange rate values
+     * @param scaleField the text field in which the scale for the x-axis is entered
+     */
     public DataSet(DataSource source, JTextField scaleField)
     {
         this.set = new ArrayList<DataPoint>();
@@ -34,17 +39,27 @@ public class DataSet {
         this.empty = true;
     }
     
+    /**
+     * sets the GraphComponent parent
+     * @param parent the associated GraphComponent
+     */
     public void setParent(GraphComponent parent)
     {
         this.parent = parent;
     }
     
+    /**
+     * Adjusts the x-axis scale based on the content of scaleField
+     */
     public void setScale()
     {
         this.scale = Math.round(Double.parseDouble(scaleField.getText()));
         hardUpdate();
     }
     
+    /**
+     * refreshes the graph with new information
+     */
     public void update()
     {
         setStartBound();
@@ -52,11 +67,9 @@ public class DataSet {
         parent.repaint();
     }
     
-    public void scaleUpdate()
-    {
-        setTimeRatio();
-    }
-    
+    /**
+     * 
+     */
     public void hardUpdate()
     {
         hardSetStartBound();
@@ -64,11 +77,19 @@ public class DataSet {
         parent.repaint();
     }
     
+    /**
+     * 
+     * @return the GraphComponent parent
+     */
     public GraphComponent getParent()
     {
         return parent;
     }
     
+    /**
+     * returns the cutoff time of the x-axis
+     * @return cutoff time as a Calender object
+     */
     public Calendar getCutOff()
     {
         Calendar temp = Calendar.getInstance();
@@ -76,6 +97,9 @@ public class DataSet {
         return temp;
     }
     
+    /**
+     * sets start to the last point before the earliest one on the graph
+     */
     public void setStartBound()
     {
         Calendar cutOff = getCutOff();
@@ -91,18 +115,29 @@ public class DataSet {
         }
     }
     
+    /**
+     * sets start to the last point before the earliest one on the graph 
+     * begins at the first DataPoint
+     */
     public void hardSetStartBound()
     {
         start = 0;
         setStartBound();
     }
     
+    /**
+     * adds a DataPoint and updates the graph
+     * @param d the DataPoint to be added
+     */
     public void add(DataPoint d)
     {
         set.add(d);
         update();
     }
     
+    /**
+     * determines the greatest value in the DataSet
+     */
     public void setMaximum()
     {
         max = Double.MIN_VALUE;
@@ -116,6 +151,9 @@ public class DataSet {
         }
     }
     
+    /**
+     * determines the smallest value in the DataSet
+     */
     public void setMinimum()
     {
         min = Double.MAX_VALUE;
@@ -129,31 +167,55 @@ public class DataSet {
         }   
     }
     
+    /**
+     * determines the difference between the maximum and minimum values
+     */
     public void setRange()
     {
         range = max - min;
     }
     
+    /**
+     * 
+     * @return the maximum value in the DataSet 
+     */
     public double getMaximum()
     {
         return max;
     }
     
+    /**
+     * 
+     * @return the minimum value in the DataSet
+     */
     public double getMinimum()
     {
         return min;
     }
     
+    /**
+     * 
+     * @return the difference between the maximum and minimum values of the DataSet 
+     */
     public double getRange()
     {
         return range;
     }
     
+    /**
+     * 
+     * @return the average of the maximum and minimum values of the DataSet 
+     */
     public double getMid()
     {
         return (min + max)/2;
     }
     
+    /**
+     * determines the location on the graph a value should be located
+     * @param value the value to be placed on the graph
+     * @return the y value of the location of the value 
+     */
     public int convert(double value)
     {
         if(range == 0)
@@ -163,6 +225,11 @@ public class DataSet {
         return (int)(parent.getUsableHeight() - Math.round((value - min) * ratio));
     }
     
+    /**
+     * determines the pixel value at which a Calender object should be rendered on the graph
+     * @param value the Calender object to be placed on the graph
+     * @return the x pixel value that the object should be rendered at
+     */
     public int convertTime(Calendar value)
     {
         int days = now.get(Calendar.DAY_OF_YEAR) - value.get(Calendar.DAY_OF_YEAR);
@@ -172,22 +239,37 @@ public class DataSet {
         return (int)(parent.getUsableWidth() - Math.round((double)(seconds) / 3600 * timeRatio ) + parent.getYAxisWidth());
     }
     
+    /**
+     * determines the width to be allowed to each time on the graph
+     */
     public void setTimeRatio()
     {
         timeRatio = parent.getUsableWidth() / scale;
     }
     
+    /**
+     * 
+     * @return the width to be allowed to each time on the graph
+     */
     public double getTimeRatio()
     {
         return timeRatio;
     }
     
+    /**
+     * determines the current time
+     */
     public void setNow()
     {
         now = Calendar.getInstance();
         axisNow = (Calendar)(now.clone());
     }
     
+    /**
+     * 
+     * @param LABELS
+     * @return the new time that the x-axis is pointing to 
+     */
     public String getTimeAt(int LABELS)
     {
         axisNow.add(Calendar.MINUTE, -(int)(Math.round((scale / LABELS) * 60)));
