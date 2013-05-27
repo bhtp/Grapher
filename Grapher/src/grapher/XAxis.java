@@ -44,7 +44,8 @@ public class XAxis {
       double value = parent.yAxis.getWidth() + parent.getUsableWidth();
       for(int i = 0; i < LABELS + 1; i++)
       {
-          renderString(g2, set.getTimeAt(LABELS),(int)(Math.round(value)), parent.getUsableHeight() + parent.PADDING*2, metrics);
+          renderString(g2, set.getTimeAt(),(int)(Math.round(value)), parent.getUsableHeight() + parent.PADDING*2, metrics);
+          set.nextTime(LABELS);
           value -= increment;
       }
     }
@@ -57,7 +58,5 @@ public class XAxis {
         textLayout.draw(g2, (int)(Math.round(x - (0.5 * metrics.stringWidth(text)))), y + parent.PADDING);
         g2.setColor(Color.darkGray);
         g2.drawLine(x, 0, x, parent.PADDING * 2 + parent.getUsableHeight());
-        System.out.println(x);
-        
     } 
 }

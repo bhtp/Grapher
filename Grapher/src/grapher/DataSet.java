@@ -275,9 +275,8 @@ public class DataSet {
      * @param LABELS
      * @return the new time that the x-axis is pointing to 
      */
-    public String getTimeAt(int LABELS)
+    public String getTimeAt()
     {
-        axisNow.add(Calendar.MINUTE, -(int)(Math.round((scale / LABELS) * 60)));
         if(scale <= 24)
         {
             return getTime();
@@ -286,6 +285,11 @@ public class DataSet {
         {
             return axisNow.get(Calendar.DAY_OF_MONTH) + "/" + axisNow.get(Calendar.MONTH) + " " + getTime();
         }
+    }
+    
+    public void nextTime(int LABELS)
+    {
+        axisNow.add(Calendar.MINUTE, -(int)(Math.round((scale / LABELS) * 60)));
     }
     
     public String getTime()
