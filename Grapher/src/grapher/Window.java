@@ -94,7 +94,7 @@ public class Window extends javax.swing.JFrame {
             }
         });
 
-        scale.setText("5");
+        scale.setText("0.5");
         scale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 scaleActionPerformed(evt);
@@ -131,7 +131,7 @@ public class Window extends javax.swing.JFrame {
         jLabel1.setText("Update Interval(M)");
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Time Scale (M)");
+        jLabel2.setText("Time Scale (H)");
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Field Name");

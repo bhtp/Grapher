@@ -54,8 +54,6 @@ public class XAxis {
         FontRenderContext frContext = g2.getFontRenderContext();   
         TextLayout textLayout = new TextLayout(text, font, frContext);  
         g2.setColor(Color.black);
-        System.out.println("X: " + x);
-        System.out.println("Y: " + y);
         textLayout.draw(g2, x, y + parent.PADDING);  
     } 
 }

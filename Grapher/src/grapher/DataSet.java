@@ -12,7 +12,7 @@ public class DataSet {
     
     private ArrayList<DataPoint> set;
     private JTextField scaleField;
-    private int scale;
+    private double scale;
     private int start;
     private GraphComponent parent;
     private double ratio;
@@ -41,7 +41,7 @@ public class DataSet {
     
     public void setScale()
     {
-        this.scale = (int)(Math.round(Double.parseDouble(scaleField.getText())));
+        this.scale = Math.round(Double.parseDouble(scaleField.getText()));
         hardUpdate();
     }
     
@@ -72,7 +72,7 @@ public class DataSet {
     public Calendar getCutOff()
     {
         Calendar temp = Calendar.getInstance();
-        temp.add(Calendar.HOUR, -scale);
+        temp.add(Calendar.MINUTE, -(int)(Math.round((scale * 60))));
         return temp;
     }
     
@@ -190,7 +190,7 @@ public class DataSet {
     
     public String getTimeAt(int LABELS)
     {
-        axisNow.add(Calendar.MINUTE, -(scale / LABELS));
+        axisNow.add(Calendar.MINUTE, -(int)(Math.round((scale / LABELS) * 60)));
         if(scale <= 24)
         {
             return getTime();
