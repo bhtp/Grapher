@@ -63,6 +63,7 @@ public class GraphComponent extends JComponent{
         {
             Pair temp = points.get(i);
             g2.setStroke(new BasicStroke(STROKE_WIDTH));
+            g2.setColor(Color.black);
             g2.drawLine(last.x - STROKE_WIDTH/2, last.y + PADDING, temp.x - STROKE_WIDTH/2, temp.y + PADDING);
             if(circles)
                 g2.drawOval(temp.x - CIRCLE_RADIUS / 2 - 1, temp.y - CIRCLE_RADIUS / 2 - 1 + PADDING, CIRCLE_RADIUS, CIRCLE_RADIUS);
