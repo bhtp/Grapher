@@ -55,7 +55,8 @@ public class XAxis {
         TextLayout textLayout = new TextLayout(text, font, frContext);  
         g2.setColor(Color.black);
         textLayout.draw(g2, (int)(Math.round(x - (0.5 * metrics.stringWidth(text)))), y + parent.PADDING);
-        g2.drawLine(x, parent.PADDING + parent.getUsableHeight(), x, parent.PADDING);
+        g2.setColor(Color.darkGray);
+        g2.drawLine(x, 0, x, parent.PADDING * 2 + parent.getUsableHeight());
         System.out.println(x);
         
     } 

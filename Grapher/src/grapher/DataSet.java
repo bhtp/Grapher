@@ -290,7 +290,16 @@ public class DataSet {
     
     public String getTime()
     {
-        return axisNow.get(Calendar.HOUR_OF_DAY) + " : " + axisNow.get(Calendar.MINUTE);
+        return pad(Integer.toString(axisNow.get(Calendar.HOUR_OF_DAY))) + " : " + pad(Integer.toString(axisNow.get(Calendar.MINUTE)));
+    }
+    
+    public static String pad(String raw)
+    {
+        if(raw.length() < 2)
+        {
+            return "0" + raw;
+        }
+        return raw;
     }
             
     public void setRatio()
