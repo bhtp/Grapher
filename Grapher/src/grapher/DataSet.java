@@ -53,8 +53,13 @@ public class DataSet {
      */
     public void setScale()
     {
-        this.scale = Math.round(Double.parseDouble(scaleField.getText()));
-        hardUpdate();
+        try {
+            scale = Double.parseDouble(scaleField.getText());
+        }
+        catch(NumberFormatException e)
+        {
+            System.out.println("Invalid Scale Entered");
+        }
     }
     
     /**
@@ -293,7 +298,7 @@ public class DataSet {
         setMaximum();
         setMinimum();
         setRange();
-         ratio = parent.getUsableHeight() / range;
+        ratio = parent.getUsableHeight() / range;
     }
     
     public double getRatio()

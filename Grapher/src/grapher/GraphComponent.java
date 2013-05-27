@@ -43,7 +43,7 @@ public class GraphComponent extends JComponent{
     
     public int getUsableWidth()
     {
-        return getWidth() - yAxis.getWidth();
+        return getWidth() - yAxis.getWidth() - (PADDING * 2);
     }
     
     public int getYAxisWidth()
