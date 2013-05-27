@@ -36,24 +36,27 @@ public class XAxis {
     public void paint(Graphics2D g2)
     {
       set.setNow();
-      FontMetrics metrics = g2.getFontMetrics();
+      FontMetrics metrics = g2.getFontMetrics(font);
       height = metrics.getHeight();
       g2.setBackground(BG_COLOR);
       g2.clearRect(0, parent.getHeight() - height, parent.getWidth(), height);
-      double increment = parent.getUsableWidth() / LABELS;
-      double value = parent.PADDING + parent.getUsableWidth();
-      for(int i = 0; i < LABELS; i++)
+      double increment = (double)(parent.getUsableWidth()) / LABELS;
+      double value = parent.yAxis.getWidth() + parent.getUsableWidth();
+      for(int i = 0; i < LABELS + 1; i++)
       {
-          renderString(g2, set.getTimeAt(LABELS),(int)(Math.round(value)), parent.getUsableHeight() + parent.PADDING*2);
+          renderString(g2, set.getTimeAt(LABELS),(int)(Math.round(value)), parent.getUsableHeight() + parent.PADDING*2, metrics);
           value -= increment;
       }
     }
     
-    public void renderString(Graphics2D g2, String text, int x, int y)  
+    public void renderString(Graphics2D g2, String text, int x, int y, FontMetrics metrics)  
     {  
         FontRenderContext frContext = g2.getFontRenderContext();   
         TextLayout textLayout = new TextLayout(text, font, frContext);  
         g2.setColor(Color.black);
-        textLayout.draw(g2, x, y + parent.PADDING);  
+        textLayout.draw(g2, (int)(Math.round(x - (0.5 * metrics.stringWidth(text)))), y + parent.PADDING);
+        g2.drawLine(x, parent.PADDING + parent.getUsableHeight(), x, parent.PADDING);
+        System.out.println(x);
+        
     } 
 }
