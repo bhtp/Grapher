@@ -4,7 +4,14 @@
  */
 package grapher;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -27,9 +34,50 @@ public class Window extends javax.swing.JFrame {
         mainGraph.init(set);
         timing = new DataTiming(set, timeInterval);
         set.setScale();
+        premadeChoice.add("Select a DataSource");
         updateLabel();
-        premades = new ArrayList<Premade>();
-        addPremade(new Premade("https://www.bitstamp.net/api/ticker/", "last"));
+        
+        File defLoc = FileSystemView.getFileSystemView().getHomeDirectory();
+        storeLoc = new File(defLoc, "grapherData.txt");
+        
+        if(!load(storeLoc))
+        {
+            //No existing data found
+            premades = new ArrayList<Premade>();
+            addPremade(new Premade("https://www.bitstamp.net/api/ticker/", "last"));
+        }
+    }
+    
+     public void store(File f) {
+        try {
+            if(!f.exists())
+                f.createNewFile();
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(premades);
+            oos.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public boolean load(File f) {
+        try {
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            this.premades = (ArrayList<Premade>)ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (IOException e) {
+            return false;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        for(int i = 0; i < premades.size(); i++)
+        {
+            premadeChoice.add(premades.get(i).toString());
+        }
+        return true;
     }
     
     private void updateLabel()
@@ -51,6 +99,7 @@ public class Window extends javax.swing.JFrame {
         urlField.setText(in.urlField);
         urlActionPerformed(null);
         urlFieldActionPerformed(null);
+        set.clear();
     }
 
     private void addPremade(Premade in)
@@ -83,9 +132,15 @@ public class Window extends javax.swing.JFrame {
         premadeChoice = new java.awt.Choice();
         graphLabel = new javax.swing.JLabel();
         clearButton = new javax.swing.JButton();
+        save = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Grapher V0.80");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         timeInterval.setText("0.05");
         timeInterval.addActionListener(new java.awt.event.ActionListener() {
@@ -156,6 +211,13 @@ public class Window extends javax.swing.JFrame {
             }
         });
 
+        save.setText("Save");
+        save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -180,12 +242,14 @@ public class Window extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(clearButton, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(circleToggle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(urlField, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(url, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                            .addComponent(pauseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(save, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(clearButton, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                .addComponent(circleToggle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(urlField, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                .addComponent(url, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                .addComponent(pauseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(graphLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
@@ -219,7 +283,9 @@ public class Window extends javax.swing.JFrame {
                 .addComponent(circleToggle)
                 .addGap(18, 18, 18)
                 .addComponent(clearButton)
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(save)
+                .addContainerGap(116, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addComponent(graphLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,12 +335,22 @@ public class Window extends javax.swing.JFrame {
     }//GEN-LAST:event_circleToggleActionPerformed
 
     private void premadeChoiceItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_premadeChoiceItemStateChanged
-        setToPremade(premades.get(premadeChoice.getSelectedIndex()));
+        if(premadeChoice.getSelectedIndex() < 1)
+            return;
+        setToPremade(premades.get(premadeChoice.getSelectedIndex() - 1));
     }//GEN-LAST:event_premadeChoiceItemStateChanged
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         set.clear();
     }//GEN-LAST:event_clearButtonActionPerformed
+
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+        addPremade(new Premade(url.getText(), urlField.getText()));
+    }//GEN-LAST:event_saveActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        store(storeLoc);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -315,6 +391,7 @@ public class Window extends javax.swing.JFrame {
     private DataTiming timing;
     private DataSource source;
     private ArrayList<Premade> premades;
+    private File storeLoc;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton circleToggle;
     private javax.swing.JButton clearButton;
@@ -326,6 +403,7 @@ public class Window extends javax.swing.JFrame {
     private grapher.GraphComponent mainGraph;
     private javax.swing.JToggleButton pauseButton;
     private java.awt.Choice premadeChoice;
+    private javax.swing.JButton save;
     private javax.swing.JTextField scale;
     private javax.swing.JTextField timeInterval;
     private javax.swing.JTextField url;

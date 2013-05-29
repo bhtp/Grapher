@@ -1,10 +1,12 @@
 package grapher;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Parker
  */
-public class Premade {
+public class Premade implements Serializable{
     public String url;
     public String urlField;
     
