@@ -13,7 +13,7 @@ import java.net.URLConnection;
  */
 public class NetworkFunctions {
     
-    public static String getData(String urlString) {
+    public static String getData(String urlString, Window parent) {
         URL url;
         InputStream is = null;
         BufferedReader br;
@@ -32,10 +32,12 @@ public class NetworkFunctions {
             }
         } 
         catch (MalformedURLException mue) {
-             mue.printStackTrace();
+             System.out.println("Invalid URL Entered");
+             parent.pauseWithButton();
         } 
         catch (IOException ioe) {
-             ioe.printStackTrace();
+             System.out.println("Problem Retreiving Data");
+             parent.pauseWithButton();
         } 
         finally {
                 try {
@@ -57,8 +59,8 @@ public class NetworkFunctions {
         return raw.substring(start, end);
     }
     
-    public static String fetchData(String url, String field)
+    public static String fetchData(String url, String field, Window parent)
     {
-        return parse(getData(url), field);
+        return parse(getData(url, parent), field);
     }
 }

@@ -126,17 +126,11 @@
       </Layout>
     </Container>
     <Component class="javax.swing.JTextField" name="timeInterval">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="0.05"/>
-      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="timeIntervalActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="scale">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="0.5"/>
-      </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
       </AccessibilityProperties>

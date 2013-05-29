@@ -12,6 +12,7 @@ public class DataSource {
     private JTextField fieldName;
     private String urlString;
     private String fieldString;
+    private Window parent;
     
     public DataSource()
     {
@@ -19,10 +20,11 @@ public class DataSource {
         fieldName = null;
     }
     
-    public DataSource(JTextField url, JTextField fieldName)
+    public DataSource(JTextField url, JTextField fieldName, Window parent)
     {
         this.url = url;
         this.fieldName = fieldName;
+        this.parent = parent;
         setSource();
         setField();
     }
@@ -39,7 +41,7 @@ public class DataSource {
     
     public double getData()
     {
-        return Double.parseDouble(NetworkFunctions.fetchData(urlString, fieldString));
+            return Double.parseDouble(NetworkFunctions.fetchData(urlString, fieldString, parent));
     }
     
 }

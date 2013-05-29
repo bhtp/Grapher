@@ -30,7 +30,13 @@ public class DataTiming {
     
     public final int getMillis()
     {
-        return (int)(Math.round(Double.parseDouble(interval.getText()) * 60000));
+        try{
+            return (int)(Math.round(Double.parseDouble(interval.getText()) * 60000));
+        }
+        catch(NumberFormatException e)
+        {
+            return -1;
+        }
     }
     
     public DataTiming(DataSet set, JTextField interval)
@@ -46,9 +52,15 @@ public class DataTiming {
     }
             
     
-    public void updateInterval()
+    public boolean updateInterval()
     {
-        timer.setDelay(getMillis());
+        int delay = getMillis();
+        if(delay > 0)
+        {
+           timer.setDelay(delay); 
+           return true;
+        }
+        return false;
     }
     
     public void pause()

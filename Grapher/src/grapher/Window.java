@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package grapher;
 
 import java.io.File;
@@ -28,7 +24,7 @@ public class Window extends javax.swing.JFrame {
     }
     public void initUserComps()
     {
-        source = new DataSource(url, urlField);
+        source = new DataSource(url, urlField, this);
         set = new DataSet(source, scale);
         set.setParent(mainGraph);
         mainGraph.init(set);
@@ -36,9 +32,11 @@ public class Window extends javax.swing.JFrame {
         set.setScale();
         premadeChoice.add("Select a DataSource");
         updateLabel();
+        scale.setText(Double.toString(DEFAULT_SCALE));
+        timeInterval.setText(Double.toString(DEFAULT_INTERVAL));
         
         File defLoc = FileSystemView.getFileSystemView().getHomeDirectory();
-        storeLoc = new File(defLoc, "grapherData.txt");
+        storeLoc = new File(defLoc, "grapherData");
         
         if(!load(storeLoc))
         {
@@ -142,14 +140,12 @@ public class Window extends javax.swing.JFrame {
             }
         });
 
-        timeInterval.setText("0.05");
         timeInterval.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 timeIntervalActionPerformed(evt);
             }
         });
 
-        scale.setText("0.5");
         scale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 scaleActionPerformed(evt);
@@ -301,11 +297,16 @@ public class Window extends javax.swing.JFrame {
 
     private void urlFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_urlFieldActionPerformed
         source.setField();
+        set.clear();
         updateLabel();
     }//GEN-LAST:event_urlFieldActionPerformed
 
     private void scaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scaleActionPerformed
-        set.setScale();
+        if(!set.setScale())
+        {
+            System.out.println("Invalid Scale Entered");
+            scale.setText(Double.toString(DEFAULT_SCALE));
+        }
     }//GEN-LAST:event_scaleActionPerformed
 
     private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
@@ -322,11 +323,16 @@ public class Window extends javax.swing.JFrame {
 
     private void urlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_urlActionPerformed
         source.setSource();
+        set.clear();
         updateLabel();
     }//GEN-LAST:event_urlActionPerformed
 
     private void timeIntervalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeIntervalActionPerformed
-        timing.updateInterval();
+        if(!timing.updateInterval())
+        {
+            System.out.println("Invalid Interval Entered");
+            timeInterval.setText(Double.toString(DEFAULT_INTERVAL));
+        }
     }//GEN-LAST:event_timeIntervalActionPerformed
 
     private void circleToggleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_circleToggleActionPerformed
@@ -387,6 +393,14 @@ public class Window extends javax.swing.JFrame {
         });
     }
     
+    public void pauseWithButton()
+    {
+        pauseButton.doClick();
+        pauseButtonActionPerformed(null);
+    }
+    
+    public static final double DEFAULT_INTERVAL = 0.05;
+    public static final double DEFAULT_SCALE = 0.5;
     private DataSet set;
     private DataTiming timing;
     private DataSource source;

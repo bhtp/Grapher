@@ -51,15 +51,20 @@ public class DataSet {
     /**
      * Adjusts the x-axis scale based on the content of scaleField
      */
-    public void setScale()
+    public boolean setScale()
     {
-        try {
-            scale = Double.parseDouble(scaleField.getText());
+        double tempScale;
+        try
+        {
+            tempScale = Double.parseDouble(scaleField.getText());
         }
         catch(NumberFormatException e)
         {
-            System.out.println("Invalid Scale Entered");
+            return false;
         }
+        scale = tempScale;
+        return true;
+                
     }
     
     /**
