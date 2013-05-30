@@ -53,16 +53,14 @@ public class DataSet {
      */
     public boolean setScale()
     {
-        double tempScale;
         try
         {
-            tempScale = Double.parseDouble(scaleField.getText());
+            scale = Double.parseDouble(scaleField.getText());
         }
         catch(NumberFormatException e)
         {
             return false;
         }
-        scale = tempScale;
         return true;
                 
     }

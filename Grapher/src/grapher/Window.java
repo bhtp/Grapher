@@ -24,6 +24,8 @@ public class Window extends javax.swing.JFrame {
     }
     public void initUserComps()
     {
+        scale.setText(Double.toString(DEFAULT_SCALE));
+        timeInterval.setText(Double.toString(DEFAULT_INTERVAL));
         source = new DataSource(url, urlField, this);
         set = new DataSet(source, scale);
         set.setParent(mainGraph);
@@ -32,8 +34,6 @@ public class Window extends javax.swing.JFrame {
         set.setScale();
         premadeChoice.add("Select a DataSource");
         updateLabel();
-        scale.setText(Double.toString(DEFAULT_SCALE));
-        timeInterval.setText(Double.toString(DEFAULT_INTERVAL));
         
         File defLoc = FileSystemView.getFileSystemView().getHomeDirectory();
         storeLoc = new File(defLoc, "grapherData");
@@ -133,7 +133,7 @@ public class Window extends javax.swing.JFrame {
         save = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Grapher V0.80");
+        setTitle("Grapher V1.0");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -306,6 +306,7 @@ public class Window extends javax.swing.JFrame {
         {
             System.out.println("Invalid Scale Entered");
             scale.setText(Double.toString(DEFAULT_SCALE));
+            scaleActionPerformed(null);
         }
     }//GEN-LAST:event_scaleActionPerformed
 
@@ -332,6 +333,7 @@ public class Window extends javax.swing.JFrame {
         {
             System.out.println("Invalid Interval Entered");
             timeInterval.setText(Double.toString(DEFAULT_INTERVAL));
+            timeIntervalActionPerformed(null);
         }
     }//GEN-LAST:event_timeIntervalActionPerformed
 
