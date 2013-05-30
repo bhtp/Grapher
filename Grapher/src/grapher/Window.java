@@ -398,7 +398,7 @@ public class Window extends javax.swing.JFrame {
     public void pauseWithButton()
     {
         pauseButton.doClick();
-        pauseButtonActionPerformed(null);
+        timing.pause();
     }
     
     public static final double DEFAULT_INTERVAL = 0.05;
