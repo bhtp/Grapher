@@ -2,7 +2,7 @@ package grapher;
 
 /**
  *
- * @author Parker
+ * @author Parker, Jonah
  */
 public class Pair {
     public int x;

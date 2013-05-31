@@ -10,7 +10,7 @@ import javax.swing.JComponent;
 
 /**
  *
- * @author 308809052
+ * @author 308809052, 308516582
  */
 public class GraphComponent extends JComponent{
     

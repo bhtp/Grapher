@@ -9,7 +9,7 @@ import java.awt.font.TextLayout;
 
 /**
  *
- * @author Parker
+ * @author Parker, Jonah
  */
 public class XAxis {
     

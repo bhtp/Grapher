@@ -9,7 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 /**
  *
- * @author Parker
+ * @author Parker, Jonah
  */
 public class NetworkFunctions {
     

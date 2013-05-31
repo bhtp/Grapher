@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Parker
+ * @author Parker, Jonah
  */
 public class Premade implements Serializable{
     public String url;

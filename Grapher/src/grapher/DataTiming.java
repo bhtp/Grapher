@@ -7,7 +7,7 @@ import javax.swing.Timer;
 
 /**
  *
- * @author 308809052
+ * @author 308809052, 308516582
  */
 public class DataTiming {
     private DataSet set;

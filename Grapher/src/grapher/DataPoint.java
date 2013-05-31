@@ -6,7 +6,7 @@ import java.util.Calendar;
 
 /**
  *
- * @author 308809052
+ * @author 308809052, 308516582
  */
 public class DataPoint {
     

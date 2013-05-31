@@ -6,7 +6,7 @@ package grapher;
 
 /**
  *
- * @author Parker
+ * @author Parker, Jonah
  */
 public class Grapher {
 
