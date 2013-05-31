@@ -13,6 +13,12 @@ import java.net.URLConnection;
  */
 public class NetworkFunctions {
     
+    /**
+     * gets data from online source
+     * @param urlString the source of the data
+     * @param parent the Window parent
+     * @return the data acquired from the online source as a String
+     */
     public static String getData(String urlString, Window parent) {
         URL url;
         InputStream is = null;
@@ -50,6 +56,12 @@ public class NetworkFunctions {
         return out;
     }
     
+    /**
+     * parses the String for a specific field
+     * @param raw the String to parse
+     * @param field the field to parse for
+     * @return the parsed String
+     */
     public static String parse(String raw, String field)
     {
         int start = raw.indexOf(field) + field.length() + 1;
@@ -59,6 +71,13 @@ public class NetworkFunctions {
         return raw.substring(start, end);
     }
     
+    /**
+     * fetches data from online source
+     * @param url the online source
+     * @param field the field to look for
+     * @param parent the Window parent
+     * @return a parsed version of the acquired data
+     */
     public static String fetchData(String url, String field, Window parent)
     {
         return parse(getData(url, parent), field);

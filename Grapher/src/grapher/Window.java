@@ -22,6 +22,10 @@ public class Window extends javax.swing.JFrame {
         initComponents();
         initUserComps();
     }
+    
+    /**
+     * initializes all components of the Graph
+     */
     public void initUserComps()
     {
         scale.setText(Double.toString(DEFAULT_SCALE));
@@ -38,6 +42,9 @@ public class Window extends javax.swing.JFrame {
         File defLoc = FileSystemView.getFileSystemView().getHomeDirectory();
         storeLoc = new File(defLoc, "grapherData");
         
+        /**
+         * adds a premade data source
+         */
         if(!load(storeLoc))
         {
             //No existing data found
@@ -46,6 +53,10 @@ public class Window extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * saves the premade DataSources in a file
+     * @param f the file to be saved in
+     */
      public void store(File f) {
         try {
             if(!f.exists())
@@ -59,6 +70,12 @@ public class Window extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+     
+     /**
+      * loads the premades into a file
+      * @param f the filed to be loaded into
+      * @return true
+      */
     public boolean load(File f) {
         try {
             FileInputStream fis = new FileInputStream(f);
@@ -78,6 +95,9 @@ public class Window extends javax.swing.JFrame {
         return true;
     }
     
+    /**
+     * updates the Graph Label as the fieldName@url
+     */
     private void updateLabel()
     {
         graphLabel.setText(urlField.getText() + " @ " + url.getText());
@@ -91,6 +111,10 @@ public class Window extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * sets a new premade DataSource
+     * @param in the new premade
+     */
     private void setToPremade(Premade in)
     {
         url.setText(in.url);
@@ -100,6 +124,10 @@ public class Window extends javax.swing.JFrame {
         set.clear();
     }
 
+    /**
+     * creates a new premade DataSource
+     * @param in the new premade
+     */
     private void addPremade(Premade in)
     {
         premades.add(in);

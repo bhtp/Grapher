@@ -19,6 +19,13 @@ public class YAxis {
     private final int PADDING = 2;
     private final static Color BG_COLOR = Color.lightGray;
     
+    /**
+     * creates the y-axis labeling area
+     * @param width of the area
+     * @param set of data to be graphed
+     * @param parent Graph 
+     * @param font of the labeling
+     */
     public YAxis(int width, DataSet set, GraphComponent parent, Font font)
     {
         this.width = width;
@@ -27,6 +34,10 @@ public class YAxis {
         this.font = font;
     }
 
+    /**
+     * draws the y-axis with an updated width 
+     * @param g2 the g2 object to be used
+     */
     public void paint(Graphics2D g2)  
     {  
         FontMetrics metrics = g2.getFontMetrics(font);
@@ -66,7 +77,13 @@ public class YAxis {
 
         parent.set.setTimeRatio();
     }     
-
+    
+    /**
+     * updates the width of the y-axis
+     * @param val the value of the new DataPoint
+     * @param metrics the metrics of the Font
+     * @param force an override to change the width regardless of the new value's width
+     */
     public void updateWidth(String val, FontMetrics metrics, boolean force)
     {
         int newWidth = metrics.stringWidth(val);
@@ -76,6 +93,13 @@ public class YAxis {
         }
     }
 
+    /**
+     * draws the labels
+     * @param val the String to be drawn
+     * @param pos the position of the label
+     * @param g2 the Graphics2D object to be used
+     * @param metrics the metrics of the used Font
+     */
     public void drawString(String val, double pos, Graphics2D g2, FontMetrics metrics)
     {
         renderString(g2, val, 0, (int)(Math.round(parent.getUsableHeight() * pos) - (metrics.getHeight() * 0.5) + parent.PADDING));
@@ -85,6 +109,13 @@ public class YAxis {
         g2.setColor(Color.black);
     }
 
+    /**
+     * renders String as pixel values
+     * @param g2 the Graphics2D object to be used
+     * @param text the text to be drawn
+     * @param x the x-coordinate
+     * @param y the y-coordinate
+     */
     public void renderString(Graphics2D g2, String text, int x, int y)  
     {  
         FontRenderContext frContext = g2.getFontRenderContext();   
@@ -93,16 +124,29 @@ public class YAxis {
         textLayout.draw(g2, x, y + parent.PADDING);  
     }  
 
+    /**
+     * truncates the String to display the value to two decimal places
+     * @param raw the raw String
+     * @return the truncated String
+     */
     public static String truncateString(double raw)
     {
        return Double.toString((double)((int)(Math.round(raw * 100)))/100);
     }
    
+    /**
+     * 
+     * @return the height of the graph 
+     */
     public int getHeight()
     {
         return parent.getUsableHeight();
     }
 
+    /**
+     * 
+     * @return the width of the y-axis 
+     */
     public int getWidth()
     {
         return width + PADDING;

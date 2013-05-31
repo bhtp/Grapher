@@ -290,16 +290,29 @@ public class DataSet {
         }
     }
     
+    /**
+     * adds the next time to the x-axis
+     * @param LABELS the integer slot of the next time
+     */
     public void nextTime(int LABELS)
     {
         axisNow.add(Calendar.MINUTE, -(int)(Math.round((scale / LABELS) * 60)));
     }
     
+    /**
+     * 
+     * @return the time in the format hour:minute 
+     */
     public String getTime()
     {
         return pad(Integer.toString(axisNow.get(Calendar.HOUR_OF_DAY))) + " : " + pad(Integer.toString(axisNow.get(Calendar.MINUTE)));
     }
     
+    /**
+     * puts a 0 in front of a String with 1 or 0 characters
+     * @param raw the initial String
+     * @return the initial String with a 0 in front if it started with 1 or 0 characters
+     */
     public static String pad(String raw)
     {
         if(raw.length() < 2)
@@ -308,7 +321,10 @@ public class DataSet {
         }
         return raw;
     }
-            
+    
+    /**
+     * sets the ratio of space to value on the y-axis
+     */
     public void setRatio()
     {
         setMaximum();
@@ -317,21 +333,37 @@ public class DataSet {
         ratio = parent.getUsableHeight() / range;
     }
     
+    /**
+     * 
+     * @return the ratio of space to value on the y-axis
+     */
     public double getRatio()
     {
         return ratio;
     }
     
+    /**
+     * 
+     * @return whether the all data has the same exchange rate value 
+     */
     public boolean isFlat()
     {
         return (range == 0);
     }
     
+    /**
+     * 
+     * @return whether the graph is empty
+     */
     public boolean isEmpty()
     {
         return empty;
     }
     
+    /**
+     * 
+     * @return an ArrayList of points currently being graphed 
+     */
     public ArrayList<Pair> getPointsInRange()
     {
         ArrayList<Pair> ret = new ArrayList<Pair>();
@@ -347,11 +379,17 @@ public class DataSet {
         return ret;
     }
     
+    /**
+     * fetches data from online source
+     */
     public void fetchData()
     {
         add(new DataPoint(source.getData()));
     }
     
+    /**
+     * clears the graph
+     */
     public void clear()
     {
         set.clear();

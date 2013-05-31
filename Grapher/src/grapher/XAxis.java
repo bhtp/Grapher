@@ -20,6 +20,13 @@ public class XAxis {
     public final static int LABELS = 5;
     public final static Color BG_COLOR = Color.gray;
     
+    /**
+     * instantiates the x-axis
+     * @param height of the x-axis
+     * @param set of data
+     * @param parent graph of the x-axis
+     * @param font of the x-axis labeling
+     */
     public XAxis(int height, DataSet set, GraphComponent parent, Font font)
     {
         this.height = height;
@@ -28,11 +35,19 @@ public class XAxis {
         this.font = font;
     }
     
+    /**
+     * 
+     * @return the height of the x-axis 
+     */
     public int getHeight()
     {
         return height;
     }
     
+    /**
+     * draws the x-axis
+     * @param g2 Graphics2D object to be used
+     */
     public void paint(Graphics2D g2)
     {
       set.setNow();
@@ -50,6 +65,14 @@ public class XAxis {
       }
     }
     
+    /**
+     * draws a String on the x-axis
+     * @param g2 Graphics2D object to be used
+     * @param text String to be drawn
+     * @param x starting x coordinate of the String
+     * @param y starting y value of the String
+     * @param metrics the FontMetrics object that is used
+     */
     public void renderString(Graphics2D g2, String text, int x, int y, FontMetrics metrics)  
     {  
         FontRenderContext frContext = g2.getFontRenderContext();   

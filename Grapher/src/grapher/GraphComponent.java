@@ -22,6 +22,10 @@ public class GraphComponent extends JComponent{
    public final int CIRCLE_RADIUS = 4;
    public final int STROKE_WIDTH = 2;
     
+   /**
+    * initializes the graph given a set of data
+    * @param set DataSet to be graphed
+    */
     public void init(DataSet set)
     {
         this.set = set;
@@ -31,31 +35,55 @@ public class GraphComponent extends JComponent{
         this.circles = false;
     }
     
+    /**
+     * toggles data point circling
+     */
     public void checkCircles()
     {
         circles = !circles;
     }
     
+    /**
+     * 
+     * @return the height allowed to the graph 
+     */
     public int getUsableHeight()
     {
         return getHeight() - (PADDING * 2) - xAxis.getHeight();
     }
     
+    /**
+     * 
+     * @return the width allowed to the graph 
+     */
     public int getUsableWidth()
     {
         return getWidth() - yAxis.getWidth() - (PADDING * 2);
     }
     
+    /**
+     * 
+     * @return the width of the y-axis labeling 
+     */
     public int getYAxisWidth()
     {
         return yAxis.getWidth();
     }
     
+    /**
+     * 
+     * @return the height of the x-axis labeling
+     */
     public int getXAxisHeight()
     {
         return xAxis.getHeight();
     }
     
+    /**
+     * draws the points
+     * @param g2 the Graphics2D object to be used
+     * @param points the points to draw
+     */
     public void paintGraph(Graphics2D g2, ArrayList<Pair> points)
     {
         Pair last = points.get(0);
@@ -71,6 +99,10 @@ public class GraphComponent extends JComponent{
         }
     }
     
+    /**
+     * draws the graph
+     * @param g the Graphics object to be used
+     */
     public void paint(Graphics g)
     {
         Graphics2D g2 = (Graphics2D)(g);
